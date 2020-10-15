@@ -25,10 +25,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-list">
                         <li>
-                            <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
-                                <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                            <a href="" class="iq-waves-effect d-flex align-items-center">
+                                <img :src="getUserInfo.profile_photo_url" class="img-fluid rounded-circle mr-3" alt="user">
                                 <div class="caption">
-                                    <h6 class="mb-0 line-height">Bni Cyst</h6>
+                                    <h6 class="mb-0 line-height">{{getUserInfo.name}}</h6>
                                 </div>
                             </a>
                         </li>
@@ -310,7 +310,7 @@
                                             </div>
                                         </a>
                                         <div class="d-inline-block w-100 text-center p-3">
-                                            <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                            <a class="bg-primary iq-sign-btn"  role="button" @click="logout">Sign out<i class="ri-login-box-line ml-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -324,8 +324,26 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
     export default {
 
+            methods:{
+                logout(){
+                    this.$Progress.start();
+                    this.axios.post('/logout').then((response) => {
+                        this.$Progress.finish();
+                        location.reload();
+                    }).catch((error)=>{
+                        this.$Progress.fail()
+                        console.log(error)
+                    })
+                }
+            },
+            computed:{
+                ...mapGetters([
+                    'getUserInfo'
+                ])
+            }
     }
 </script>
 

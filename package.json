@@ -15,10 +15,12 @@
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
+        "laravel-echo": "^1.9.0",
         "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.20",
         "popper.js": "^1.12",
         "postcss-import": "^12.0.1",
+        "pusher-js": "^7.0.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
@@ -27,6 +29,12 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "vue-router": "^3.4.6"
+        "@morioh/v-lightbox": "^1.0.3",
+        "sweetalert2": "^10.5.1",
+        "vue-axios": "^2.1.5",
+        "vue-photo-grid": "^1.0.2",
+        "vue-progressbar": "^0.7.5",
+        "vue-router": "^3.4.6",
+        "vuex": "^3.5.1"
     }
 }

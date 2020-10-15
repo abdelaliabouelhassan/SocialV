@@ -9,6 +9,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <router-view></router-view>
+                            <vue-progress-bar></vue-progress-bar>
                         </div>
                     </div>
                 </div>
@@ -21,7 +22,22 @@
 
 <script>
     export default {
+        methods:{
+          loadCurrentUser(){
+              this.$Progress.start();
+              this.axios.get('/api/user').then((response) => {
+                  this.$store.state.user = response.data
+                  this.$Progress.finish();
+              }).catch((error)=>{
+                  console.log(error)
+                  this.$Progress.fail()
+              })
 
+          }
+        },
+        created() {
+                this.loadCurrentUser();
+        }
     }
 </script>
 

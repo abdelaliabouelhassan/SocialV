@@ -24,8 +24,16 @@ Vue.component('socialV-header', require('./components/includes/header.vue').defa
 Vue.component('socialV-left', require('./components/includes/left.vue').default);
 Vue.component('socialV-right', require('./components/includes/right.vue').default);
 Vue.component('socialV-footer', require('./components/includes/footer').default);
+Vue.component('socialV-imgrid', require('./components/socialV/NewsFeed/ImageGrid').default);
+Vue.component('socialV-post', require('./components/socialV/NewsFeed/Posts').default);
 Vue.component('socialv', require('./components/App.vue').default);
 
+/*axios*/
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios, axios)
+
+/*end axios*/
 
 
 /*Routes*/
@@ -33,16 +41,69 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-const routes = [
-    { path: '/newsfeed', component: require('./components/socialV/NewsFeed').default},
-    { path: '*', component: require('./components/socialV/errorPage/404.vue').default},
-]
-
+import  routes from './routes/route'
 const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`
 })
 /*end Routes*/
+
+/*Vuex*/
+import store from './store/store'
+/*End Vuex*/
+
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+    color: 'rgb(106,203,255)',
+    failedColor: 'red',
+    height: '2px',
+    thickness: '4px',
+    transition: {
+        speed: '1s',
+        opacity: '1s',
+        termination: 900
+    },
+})
+
+/*Slideshow  image */
+import PhotoGrid from 'vue-photo-grid';
+Vue.use(PhotoGrid);
+/*end Slideshow  image*/
+/*sweetalert2*/
+import Swal from 'sweetalert2'
+window.Swal = Swal
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+})
+window.swalWithBootstrapButtons = swalWithBootstrapButtons
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+window.Toast = Toast
+/*end sweetalert2*/
+
+
+/*emit*/
+window.something = new Vue();
+/*end emit*/
+
+
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,5 +116,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
+    store,
     router
 });

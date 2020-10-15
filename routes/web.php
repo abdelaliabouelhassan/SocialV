@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 */
 
 
+
+
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
