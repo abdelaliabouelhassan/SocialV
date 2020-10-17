@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeEvent;
 use App\Models\Like;
 use Illuminate\Http\Request;
 
@@ -37,17 +38,22 @@ class LikeController extends Controller
     {
 
      $like =   Like::where('post_id',$request->post_id)->where('user_id',auth('sanctum')->id())->get();
-     if(count($like) == 0 ){
+
+
+        if(count($like) == 0 ){
          Like::create([
              'type'=>$request->type,
              'post_id'=>$request->post_id,
              'user_id'=>auth('sanctum')->id(),
          ]);
+         broadcast(new LikeEvent(auth('sanctum')->user(),$request->post_id,'+'))->toOthers();
          return response()->json('Liked Successfully',200);
 
      }else{
          Like::where('post_id',$request->post_id)->where('user_id',auth('sanctum')->id())->delete();
-         return response()->json('Unliked Successfully',200);
+            broadcast(new LikeEvent(auth('sanctum')->user(),$request->post_id,'-'))->toOthers();
+
+            return response()->json('Unliked Successfully',200);
 
      }
 

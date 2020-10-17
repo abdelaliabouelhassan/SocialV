@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\commentTyping;
+use App\Http\Resources\CommentCollection;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 
 class CommentController extends Controller
 {
@@ -33,8 +37,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public $i = 5;
+
+    public function loadMoreComment(Request $request){
+
+        $comment = Comment::latest()->orderBy('id')->where('post_id',$request->post_id)->paginate($request->loadmoreNumber);
+     return   CommentCollection::collection($comment);
+    }
+
+
     public function store(Request $request)
     {
+
        $request->validate([
            'comment'=>'required',
            'post_id'=>'required'
@@ -45,6 +59,8 @@ class CommentController extends Controller
             'post_id'=>$request->post_id,
             'user_id'=>auth('sanctum')->id(),
        ]);
+        $comment = Comment::latest()->orderBy('id')->where('post_id',$request->post_id)->paginate(1);
+         broadcast(new commentTyping(CommentCollection::collection($comment),$request->post_id));
         return response()->json('Created Successfully',200);
 
     }

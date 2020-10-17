@@ -254,9 +254,6 @@
                        })
                     }
             },
-            test(){
-                alert('dfgfdg')
-            }
         }
     }
 </script>

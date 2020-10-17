@@ -106,7 +106,7 @@
                                                 </span>
                                         <div class="dropdown-menu" v-show="post.likeCount > 0">
                                             <a v-for="like in post.likes" class="dropdown-item" href="#">{{like.user.name}}</a>
-                                            <a  class="dropdown-item" href="#">Other</a>
+                                            <a  class="dropdown-item" href="#" v-if="post.likes.length < post.likeCount">Other</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="share-block d-flex align-items-center feather-icon mr-3">
-                            <a href="javascript:void();"><i class="ri-share-line"></i>
+                            <a href="javascript:void(0);"><i class="ri-share-line"></i>
                                 <span class="ml-1">99 Share</span></a>
                         </div>
                     </div>
@@ -139,22 +139,39 @@
                                     <h6>{{comment.user.name}}</h6>
                                     <p class="mb-0">{{comment.body}}</p>
                                     <div class="d-flex flex-wrap align-items-center comment-activity">
-                                        <a href="javascript:void();">like</a>
-                                        <a href="javascript:void();">reply</a>
-                                        <a href="javascript:void();">translate</a>
+                                        <a href="javascript:void(0);">like</a>
+                                        <a href="javascript:void(0);" @click="showCommentForm(comment,post)" v-if="showCommentForms != comment">reply</a>
+                                        <a href="javascript:void(0);" @click="HideCommentForm(comment,post)" v-if="showCommentForms == comment">un-reply</a>
+                                        <a href="javascript:void(0);">translate</a>
                                         <span> {{comment.created_at}} </span>
                                     </div>
+                                    <!--     comment form       -->
+                                            <form class="comment-text d-flex align-items-center mt-3"  action="javascript:void(0);" v-if="showCommentForms == comment">
+                                                <input type="text" class="form-control" v-model="commentText[index]" @keyup="isTyping(post)" @keyup.enter="createComment(index,post.id)">
+                                                <div class="comment-attagement d-flex">
+                                                    <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
+                                                    <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
+                                                    <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
+                                                </div>
+                                            </form>
                                 </div>
                             </div>
+
                         </li>
+                        <div class="d-flex flex-wrap align-items-center comment-activity">
+                            <a href="javascript:void(0)" v-if="post.comments.length < post.commentCount" @click="loadMoreComments(post)">LoadMore Comments</a>
+                            <a href="javascript:void(0)" v-if="post.comments.length > 5" @click="loadLessComments(post)">LoadLess Comments</a>
+                            <img src="images/page-img/page-load-loader.gif"  alt="loader" style="height: 50px;" v-if="showLoadGif == post">
+                        </div>
+                        <span v-if="showIsTypin == post.id" style="background-color:gray; border-radius: 5px;color: white;">Some One is Typing...</span>
 
                     </ul>
-                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-                        <input type="text" class="form-control rounded" v-model="commentText[index]" @keyup.enter="createComment(index,post.id)">
+                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);" v-if="showPostForms != post">
+                        <input type="text" class="form-control rounded" v-model="commentText[index]" @keyup="isTyping(post)" @keyup.enter="createComment(index,post.id)">
                         <div class="comment-attagement d-flex">
-                            <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                            <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                            <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                            <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
+                            <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
+                            <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
                         </div>
                     </form>
                 </div>
@@ -175,21 +192,55 @@
                filetype:'',
                isliked:false,
                post:'',
-               commentText:[]
+               showLoadGif:null,
+               showCommentForms:null,
+               showPostForms:null,
+               commentText:[],
+               typing:false,
+               showIsTypin:null,
            }
 
         },
         methods:{
+            HideCommentForm(){
+                this.showCommentForms = null
+                this.showPostForms = null
+            },
+            showCommentForm(comment,post){
+                    this.showCommentForms = comment
+                    this.showPostForms = post
+            },
+            loadMoreComments(post){
+                this.showLoadGif = post;
+                post.loadmoreNumber = post.loadmoreNumber +5;
+                this.axios.post('/api/LoadMoreComment',{post_id:post.id,loadmoreNumber:post.loadmoreNumber}).then((response) => {
+                    post.comments = response.data.data
+                    this.showLoadGif = null
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
+            loadLessComments(post){
+                this.showLoadGif = post;
+                post.loadmoreNumber = post.loadmoreNumber - 5;
+                this.axios.post('/api/LoadMoreComment',{post_id:post.id,loadmoreNumber:post.loadmoreNumber}).then((response) => {
+                    post.comments = response.data.data
+                    this.showLoadGif = null
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
            LikePost(type,post_id,post){
                if( post.isLiked){
                    post.isLiked = false
+                   post.likes.splice(this.posts.indexOf(post.likes),1);
                    post.likeCount--;
                }else {
                    post.likeCount++;
+                   post.likes.push({user:this.getUserInfo})
                    post.isLiked = true
                }
                this.axios.post('/api/LikePost',{type:type,post_id:post_id}).then((response) => {
-                   console.log(response)
                }).catch((error)=>{
                    console.log(error)
                })
@@ -199,15 +250,45 @@
                     return
                 }else{
                     this.axios.post('/api/CreateComment',{comment:this.commentText[index],post_id:post_id}).then((response) => {
-                        this.commentText = []
-                        something.$emit('StoreNewPost');
-
-                        console.log(response)
+                        this.commentText = [];
                     }).catch((error)=>{
-                            console.log(error)
                     })
                 }
-            }
+            },
+            checkLikeEvent(e) {
+
+                this.posts.forEach(post => {
+                    if(post.id == e.post){
+                        if(e.type == '+'){
+                            post.likeCount++;
+                            post.likes.push({user:e.user})
+                        }else if (e.type == '-'){
+                            post.likes.splice(this.posts.indexOf(post.likes),1);
+                            post.likeCount--;
+                        }
+
+                    }
+
+                });
+
+            },
+            addCommentEvent(e){
+                this.posts.forEach(post => {
+                    if(post.id == e.post_id){
+                            post.comments.push(e.comment[0])
+                            post.commentCount++;
+                    }
+
+                });
+            },
+            isTyping(post) {
+                let channel = Echo.private('CommentTyping');
+                setTimeout(function() {
+                    channel.whisper('typing', {
+                        post_id:post.id
+                    });
+                }, 100);
+            },
         },
         computed:{
             ...mapGetters([
@@ -215,6 +296,25 @@
             ]),
 
 
+        },
+        mounted(){
+            //events for likes
+            Echo.private('Likes')
+                .listen('LikeEvent', (e) => {
+                  this.checkLikeEvent(e)
+                });
+            //events for comment typing
+            Echo.private('CommentTyping')
+                .listen('commentTyping', (e) => {
+                    this.addCommentEvent(e)
+                }).listenForWhisper('typing', (e) => {
+                this.showIsTypin = e.post_id
+                let vm = this
+                // remove is typing indicator after 0.9s
+                setTimeout(function() {
+                    vm.showIsTypin = null
+                }, 3000);
+            });
         }
     }
 </script>
