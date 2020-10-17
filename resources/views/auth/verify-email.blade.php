@@ -69,7 +69,7 @@
                                 </div>
                             </form>
                             <hr>
-                        {{_('You Can Logout here ')}}
+                        {{__('You Can Logout here ')}}
                             <br><br>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
