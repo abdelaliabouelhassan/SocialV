@@ -63,18 +63,16 @@
                 <div class="mt-3">
                     <p v-if="post.body != null">{{post.body}}</p>
                 </div>
-                <div style="display: none" v-for="(path,index) in post.files">
+                <div style="display: none" v-for="(path) in post.files">
                     <p style="display: none">{{filetype = path.type}}</p>
+                    <span v-show="false" v-if="filetype =='image'">{{images.push('uploads/SocialVFiles/PostsFiles/' + path.path)}}</span>
                 </div>
                 <div class="user-post"  v-if="filetype =='image'">
-                    <div id="photo-grid">
-                        <socialV-imgrid :box-height="'600px'" :box-width="'100%'"  >
-                            <img v-for="(path,index) in post.files" :src="'uploads/SocialVFiles/PostsFiles/' + path.path"  />
-                        </socialV-imgrid>
-                    </div>
+                    <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>
+                    <span v-show="false">{{images = []}}</span>
                 </div>
                 <div class="user-post"  v-else>
-                    <video controls  v-for="(path,index) in post.files" class="img-fluid rounded w-100" >
+                    <video controls  v-for="(path) in post.files" class="img-fluid rounded w-100" >
                         <source :src="'uploads/SocialVFiles/PostsFiles/' + path.path" type="video/mp4">
                     </video>
                 </div>
@@ -130,7 +128,7 @@
                     </div>
                     <hr>
                     <ul class="post-comments p-0 m-0">
-                        <li class="mb-2" v-for="comment in post.comments">
+                        <li class="mb-2" v-for="(comment,index1) in post.comments">
                             <div class="d-flex flex-wrap">
                                 <div class="user-img">
                                     <img :src="comment.user.profile_photo_url" :alt="comment.user.name" class="avatar-35 rounded-circle img-fluid">
@@ -145,15 +143,44 @@
                                         <a href="javascript:void(0);">translate</a>
                                         <span> {{comment.created_at}} </span>
                                     </div>
-                                    <!--     comment form       -->
-                                            <form class="comment-text d-flex align-items-center mt-3"  action="javascript:void(0);" v-if="showCommentForms == comment">
-                                                <input type="text" class="form-control" v-model="commentText[index]" @keyup="isTyping(post)" @keyup.enter="createComment(index,post.id)">
-                                                <div class="comment-attagement d-flex">
-                                                    <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
-                                                    <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
-                                                    <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
+
+                                    <!--      Replay           -->
+                                    <ul class="post-comments p-0 m-0">
+                                        <li class="mb-0" v-for="replay in comment.replay" v-if="hideReplay == comment.replay">
+                                            <div class="d-flex flex-wrap">
+                                                <div class="d-flex flex-wrap">
+                                                    <div class="user-img">
+                                                        <img :src="replay.user.profile_photo_url" :alt="replay.user.name" class="avatar-35 rounded-circle img-fluid">
+                                                    </div>
+
+                                                    <div class="comment-data-block ml-3">
+                                                        <h6>{{replay.user.name}}</h6>
+                                                        <p class="mb-0">{{replay.replay}}</p>
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">
+                                                            <a href="javascript:void(0);">like</a>
+                                                            <a href="javascript:void(0);">translate</a>
+                                                            <span> {{replay.created_at}} </span>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                            </form>
+                                            </div>
+                                        </li>
+                                        <a href="javascript:void(0);" @click="heidOrReplays(comment.replay,'hide')" v-if="hideReplay == comment.replay">Hied Replays</a>
+                                        <a href="javascript:void(0);" @click="heidOrReplays(comment.replay,'see')" v-if="comment.replay.length > 0 && hideReplay != comment.replay">See Replays ({{comment.replay.length}})</a>
+
+
+                                    </ul>
+
+                                    <!--     comment form       -->
+                                    <form class="comment-text d-flex align-items-center mt-3"  action="javascript:void(0);" v-if="showCommentForms == comment">
+                                        <input type="text" class="form-control" v-model="commentReplayText[index1]" @keyup="isTyping(post)" @keyup.enter="createReplayComment(index1,comment.id)">
+                                        <div class="comment-attagement d-flex">
+                                            <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
+                                            <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
+                                            <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -178,6 +205,8 @@
             </div>
         </div>
     </div>
+        <infinite-loading v-if="load" @distance="1"   @infinite="infiniteHandler"></infinite-loading>
+
     </div>
 </template>
 
@@ -186,9 +215,10 @@
     import uniq from 'lodash/uniq'
 
     export default {
-       props:['posts'],
+       props:['posts','lastPage','load'],
         data(){
            return{
+               images:[],
                filetype:'',
                isliked:false,
                post:'',
@@ -196,12 +226,72 @@
                showCommentForms:null,
                showPostForms:null,
                commentText:[],
+               commentReplayText:[],
+               hideReplay:null,
                typing:false,
                showIsTypin:null,
+               page: 2,
+
+
            }
 
         },
         methods:{
+            infiniteHandler: function ($state) {
+                let vm = this;
+                if (this.posts.length != 0) {
+                    axios.get('api/LoadPosts?page=' + this.page)
+                        .then(response => {
+                            return response.data;
+                        }).then(data => {
+                        //
+                        if (this.page - 1 == this.lastPage) {
+                            $state.complete();
+                        } else {
+                            setTimeout(function () {
+                                $.each(data.data, function (key, value) {
+                                    vm.posts.push(value);
+                                });
+                                $state.loaded();
+                                Vue.nextTick(function () {
+                                    $('[data-toggle="tooltip"]').tooltip();
+                                });
+                            }.bind(this), 0);
+                        }
+
+                    });
+                    this.page = this.page + 1;
+                } else {
+                    $state.complete();
+                }
+
+            },
+            addCommentReplayEvent(e){
+                this.posts.forEach((post,key) => {
+                   post.comments.forEach(comment=>{
+               if(comment.id == e.post_id){//post_id here is comment_id
+                    comment.replay.push(e.comment[0])
+               }
+                   })
+                });
+            },
+            heidOrReplays(replay,type){
+                if(type == 'hide'){
+                    this.hideReplay = null;
+                }else{
+                    this.hideReplay = replay;
+                }
+            },
+            createReplayComment(index,comment_id){
+                if(this.commentReplayText == ""){
+                    return
+                }
+                this.axios.post('/api/CreateCommentReplay',{comment_id:comment_id,replay:this.commentReplayText[index]}).then((response) => {
+                    this.commentReplayText = [];
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            },
             HideCommentForm(){
                 this.showCommentForms = null
                 this.showPostForms = null
@@ -306,7 +396,13 @@
             //events for comment typing
             Echo.private('CommentTyping')
                 .listen('commentTyping', (e) => {
-                    this.addCommentEvent(e)
+                    if(e.type == 'comment'){
+                        this.addCommentEvent(e)
+                    }else{
+                      this.addCommentReplayEvent(e)
+                    }
+
+
                 }).listenForWhisper('typing', (e) => {
                 this.showIsTypin = e.post_id
                 let vm = this

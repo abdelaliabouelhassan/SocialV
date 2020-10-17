@@ -18,6 +18,7 @@ class CreateCommentReplaysTable extends Migration
             $table->text('body');
             $table->integer('user_id')->index()->unsigned();
             $table->integer('comment_id')->index()->unsigned();
+            $table->integer('parent_id')->index()->unsigned()->nullable();
             $table->timestamps();
         });
     }

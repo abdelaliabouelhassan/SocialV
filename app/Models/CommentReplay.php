@@ -11,6 +11,9 @@ class CommentReplay extends Model
     protected $guarded = [];
 
     public function comment(){
-        return $this->belongsTo('App\Models\Comment');
+        return $this->belongsTo('App\Models\Comment','comment_id');
+    }
+    public function user(){
+        return $this->belongsTo('App\Models\User');
     }
 }

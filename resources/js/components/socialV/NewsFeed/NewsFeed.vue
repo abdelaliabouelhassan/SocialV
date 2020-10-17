@@ -15,7 +15,7 @@
                     </div>
 
 
-                    <socialV-post class="col-sm-12" :posts="getPosts"></socialV-post>
+                    <socialV-post class="col-sm-12" :posts="getPosts" :lastPage="lastPage" :load="load"></socialV-post>
 
 
                 </div>
@@ -172,9 +172,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 text-center">
-                    <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
-                </div>
+<!--                <div class="col-sm-12 text-center">-->
+<!--                    <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -186,6 +186,12 @@
     import {mapMutations} from 'vuex';
     import {mapGetters} from 'vuex'
     export default {
+        data(){
+            return{
+                lastPage:1,
+                load:false
+            }
+        },
         components:{
             'Post-Bar':Postbar
         },
@@ -194,9 +200,11 @@
                 'StorePost'
             ]),
             loadPosts(){
-
+                var vm = this
                 this.axios.get('/api/LoadPosts').then((response)=>{
-                    this.StorePost(response.data.data); // vuex mutations
+                    vm.lastPage = response.data.meta.last_page
+                    vm.load = true
+                    vm.StorePost(response.data.data); // vuex mutations
                 }).catch((error)=>{
                     console.log(error)
                 })

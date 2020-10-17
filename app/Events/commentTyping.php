@@ -21,11 +21,12 @@ class commentTyping implements ShouldBroadcast
      */
     public  $comment;
     public  $post_id;
-
-    public function __construct($comment,$post_id)
+    public $type;
+    public function __construct($comment,$post_id,$type)
     {
         $this->comment = $comment;
         $this->post_id = $post_id;
+        $this->type = $type;
     }
 
     /**

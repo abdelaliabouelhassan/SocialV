@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/LoadPosts','PostController@index');
 Route::middleware('auth:sanctum')->post('/CreatePost','PostController@store');
 Route::middleware('auth:sanctum')->post('/CreateComment','CommentController@store');
+Route::middleware('auth:sanctum')->post('/CreateCommentReplay','CommentController@storeReplay');
 Route::middleware('auth:sanctum')->post('/LoadMoreComment','CommentController@loadMoreComment');
 Route::middleware('auth:sanctum')->post('/LikePost','LikeController@store');

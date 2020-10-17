@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Events\commentTyping;
 use App\Http\Resources\CommentCollection;
+use App\Http\Resources\CommentReplayCollection;
 use App\Models\Comment;
+use App\Models\CommentReplay;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
@@ -48,7 +50,6 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-
        $request->validate([
            'comment'=>'required',
            'post_id'=>'required'
@@ -60,9 +61,26 @@ class CommentController extends Controller
             'user_id'=>auth('sanctum')->id(),
        ]);
         $comment = Comment::latest()->orderBy('id')->where('post_id',$request->post_id)->paginate(1);
-         broadcast(new commentTyping(CommentCollection::collection($comment),$request->post_id));
+         broadcast(new commentTyping(CommentCollection::collection($comment),$request->post_id,'comment'));
         return response()->json('Created Successfully',200);
 
+    }
+
+
+    public function storeReplay(Request $request){
+        $request->validate([
+            'comment_id'=>'required',
+            'replay'=>'required'
+        ]);
+       CommentReplay::create([
+          'comment_id'=>$request->comment_id,
+           'body'=>$request->replay,
+           'user_id'=>auth('sanctum')->id(),
+       ]);
+        $commentReplay = CommentReplay::latest()->orderBy('id')->where('comment_id',$request->comment_id)->paginate(1);
+        broadcast(new commentTyping(CommentReplayCollection::collection($commentReplay),$request->comment_id,'replay'));
+
+        return response()->json('Created Successfully',200);
     }
 
     /**

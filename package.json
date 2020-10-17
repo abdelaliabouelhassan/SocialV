@@ -30,10 +30,16 @@
     },
     "dependencies": {
         "@morioh/v-lightbox": "^1.0.3",
+        "babel-plugin-transform-react-jsx": "^6.24.1",
+        "react": "^16.14.0",
+        "react-dom": "^16.14.0",
+        "react-fb-image-grid": "^0.1.5",
         "sweetalert2": "^10.5.1",
         "vue-axios": "^2.1.5",
+        "vue-infinite-loading": "^2.4.5",
         "vue-photo-grid": "^1.0.2",
         "vue-progressbar": "^0.7.5",
+        "vue-react": "^1.2.0",
         "vue-router": "^3.4.6",
         "vuex": "^3.5.1"
     }

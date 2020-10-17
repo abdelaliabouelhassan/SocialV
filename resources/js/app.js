@@ -7,7 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+// Vue.config.debug = false;
+// Vue.config.silent = true;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,7 +25,6 @@ Vue.component('socialV-header', require('./components/includes/header.vue').defa
 Vue.component('socialV-left', require('./components/includes/left.vue').default);
 Vue.component('socialV-right', require('./components/includes/right.vue').default);
 Vue.component('socialV-footer', require('./components/includes/footer').default);
-Vue.component('socialV-imgrid', require('./components/socialV/NewsFeed/ImageGrid').default);
 Vue.component('socialV-post', require('./components/socialV/NewsFeed/Posts').default);
 Vue.component('socialv', require('./components/App.vue').default);
 
@@ -35,6 +35,21 @@ Vue.use(VueAxios, axios)
 
 /*end axios*/
 
+
+/*react */
+import VueReact from 'vue-react';
+Vue.use(VueReact);
+import FbImageLibrary from 'react-fb-image-grid'
+Vue.react('FbImageLibrary', FbImageLibrary);
+
+/*end react*/
+
+/*vue-infinite-loading  load more*/
+
+import InfiniteLoading from 'vue-infinite-loading';
+
+Vue.use(InfiniteLoading, { /* options */ });
+/*end vue-infinite-loading load more*/
 
 /*Routes*/
 import Vue from 'vue'
