@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'stateful' => 'http://socialv.herokuapp.com/',
+    'stateful' => 'https://socialv.herokuapp.com/',
 
     /*
     |--------------------------------------------------------------------------
