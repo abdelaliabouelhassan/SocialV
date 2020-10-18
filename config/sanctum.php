@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'http://socialv.herokuapp.com/')),
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'http://socialv.herokuapp.com')),
 
     /*
     |--------------------------------------------------------------------------
