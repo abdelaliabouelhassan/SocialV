@@ -25,3 +25,4 @@ Route::middleware('auth:sanctum')->post('/CreateComment','CommentController@stor
 Route::middleware('auth:sanctum')->post('/CreateCommentReplay','CommentController@storeReplay');
 Route::middleware('auth:sanctum')->post('/LoadMoreComment','CommentController@loadMoreComment');
 Route::middleware('auth:sanctum')->post('/LikePost','LikeController@store');
+Route::middleware('auth:sanctum')->post('/Translate','TranslateController@TranslateText');

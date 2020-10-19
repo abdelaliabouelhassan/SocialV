@@ -3,7 +3,7 @@
     <div class="iq-card-body" data-toggle="modal" data-target="#post-modal" @click="show = true">
         <div class="d-flex align-items-center">
             <div class="user-img">
-                <img src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle">
+                <img :src="$store.getters.getUserInfo.profile_photo_url" alt="userimg" class="avatar-60 rounded-circle">
             </div>
             <form class="post-text ml-3 w-100">
                 <input type="text" class="form-control rounded" placeholder="Write something here..." style="border:none;">

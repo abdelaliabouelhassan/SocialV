@@ -35,6 +35,12 @@ Vue.use(VueAxios, axios)
 
 /*end axios*/
 
+/*Read More*/
+import ReadMore from 'vue-read-more';
+Vue.use(ReadMore);
+
+/*End Read More*/
+
 
 /*react */
 import VueReact from 'vue-react';

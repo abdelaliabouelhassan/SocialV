@@ -61,7 +61,9 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <p v-if="post.body != null">{{post.body}}</p>
+                    <p v-if="post.body != null">
+                        <read-more more-str="read more" :text="post.body" link="javascript:void(0)" less-str="read less" :max-chars="1000"></read-more>
+                    </p>
                 </div>
                 <div style="display: none" v-for="(path) in post.files">
                     <p style="display: none">{{filetype = path.type}}</p>
@@ -137,10 +139,9 @@
                                     <h6>{{comment.user.name}}</h6>
                                     <p class="mb-0">{{comment.body}}</p>
                                     <div class="d-flex flex-wrap align-items-center comment-activity">
-                                        <a href="javascript:void(0);">like</a>
                                         <a href="javascript:void(0);" @click="showCommentForm(comment,post)" v-if="showCommentForms != comment">reply</a>
                                         <a href="javascript:void(0);" @click="HideCommentForm(comment,post)" v-if="showCommentForms == comment">un-reply</a>
-                                        <a href="javascript:void(0);">translate</a>
+                                        <a href="javascript:void(0);" @click="translate(comment,'comment')">translate</a>
                                         <span> {{comment.created_at}} </span>
                                     </div>
 
@@ -158,7 +159,7 @@
                                                         <p class="mb-0">{{replay.replay}}</p>
                                                         <div class="d-flex flex-wrap align-items-center comment-activity">
                                                             <a href="javascript:void(0);">like</a>
-                                                            <a href="javascript:void(0);">translate</a>
+                                                            <a href="javascript:void(0);" @click="translate(replay,'replay')" >translate</a>
                                                             <span> {{replay.created_at}} </span>
                                                         </div>
                                                     </div>
@@ -237,6 +238,27 @@
 
         },
         methods:{
+            translate(text,type){
+                    var TextToTranslate = "";
+
+                if(type == 'comment'){
+                    var TextToTranslate = text.body;
+                }else if (type == 'replay'){
+                    var TextToTranslate = text.replay;
+                }
+                this.axios.post('/api/Translate',{text:TextToTranslate}).then((response) => {
+                    console.log(response)
+                    if(type == 'comment'){
+                        text.body = response.data;
+                    }else if (type == 'replay'){
+                        text.replay = response.data;
+                    }
+
+                }).catch((error)=>{
+                    console.log(error)
+                })
+
+            },
             infiniteHandler: function ($state) {
                 let vm = this;
                 if (this.posts.length != 0) {
