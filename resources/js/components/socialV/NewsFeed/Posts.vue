@@ -67,7 +67,7 @@
                 </div>
                 <div style="display: none" v-for="(path) in post.files">
                     <p style="display: none">{{filetype = path.type}}</p>
-                    <span v-show="false" v-if="filetype =='image'">{{images.push('uploads/SocialVFiles/PostsFiles/' + path.path)}}</span>
+                    <span v-show="false" v-if="filetype =='image'">{{images.push(path.path)}}</span>
                 </div>
                 <div class="user-post"  v-if="filetype =='image'">
                     <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="user-post"  v-else>
                     <video controls  v-for="(path) in post.files" class="img-fluid rounded w-100" >
-                        <source :src="'uploads/SocialVFiles/PostsFiles/' + path.path" type="video/mp4">
+                        <source :src="path.path" type="video/mp4">
                     </video>
                 </div>
                 <div class="comment-area mt-3">

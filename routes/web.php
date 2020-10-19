@@ -44,6 +44,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-Route::get('{path}',function (){
+Route::middleware(['auth:sanctum', 'verified'])->get('{path}',function (){
     return view('dashboard');
 })->where('path','[a-zA-Z0-9-/]+');

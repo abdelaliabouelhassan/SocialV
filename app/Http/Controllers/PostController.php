@@ -57,8 +57,9 @@ class PostController extends Controller
                         $name = time() . uniqid() . '.'  . explode('/',explode(':',substr($img,0,strpos($img,';')))[1])[1];
                         $img =   Image::make($img);
                         $img->save(public_path('uploads'.DIRECTORY_SEPARATOR.'SocialVFiles'.DIRECTORY_SEPARATOR.'PostsFiles'.DIRECTORY_SEPARATOR).$name);
+                        $path = '/uploads/SocialVFiles/PostsFiles/' .$name;
                         PostUpload::create([
-                           'path'=>$name,
+                           'path'=>$path,
                             'type'=>'image',
                             'post_id'=>$post->id
                         ]);
@@ -70,8 +71,10 @@ class PostController extends Controller
             foreach ($request->video as $vid){
                 $name = time() . '.'  . explode('/',explode(':',substr($vid,0,strpos($vid,';')))[1])[1];
                 Storage::disk('public')->putFileAs('/SocialVFiles'.DIRECTORY_SEPARATOR.'PostsFiles'.DIRECTORY_SEPARATOR, $vid,$name);
+                $path = '/uploads/SocialVFiles/PostsFiles/' .$name;
+
                 PostUpload::create([
-                    'path'=>$name,
+                    'path'=>$path,
                     'type'=>'video',
                     'post_id'=>$post->id
                 ]);
