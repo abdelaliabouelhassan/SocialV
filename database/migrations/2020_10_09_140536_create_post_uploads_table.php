@@ -15,7 +15,7 @@ class CreatePostUploadsTable extends Migration
     {
         Schema::create('post_uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
+            $table->text('path');
             $table->string('type');
             $table->integer('post_id')->index()->unsigned();
             $table->timestamps();
