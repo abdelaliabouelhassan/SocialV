@@ -261,6 +261,11 @@
             },
             infiniteHandler: function ($state) {
                 let vm = this;
+                if(this.lastPage == 1 ){
+                    $state.complete();
+                }else{
+
+
                 if (this.posts.length != 0) {
                     axios.get('api/LoadPosts?page=' + this.page)
                         .then(response => {
@@ -285,6 +290,7 @@
                     this.page = this.page + 1;
                 } else {
                     $state.complete();
+                }
                 }
 
             },

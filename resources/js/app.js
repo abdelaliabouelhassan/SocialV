@@ -28,6 +28,15 @@ Vue.component('socialV-footer', require('./components/includes/footer').default)
 Vue.component('socialV-post', require('./components/socialV/NewsFeed/Posts').default);
 Vue.component('socialv', require('./components/App.vue').default);
 
+
+
+/*Autocomplete*/
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+Vue.use(Autocomplete)
+
+/*end Autocomplete*/
+
 /*axios*/
 import axios from 'axios'
 import VueAxios from 'vue-axios'

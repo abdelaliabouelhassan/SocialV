@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Hootlex\Friendships\FriendshipsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -178,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+
 
     ],
 

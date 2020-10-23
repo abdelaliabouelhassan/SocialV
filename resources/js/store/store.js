@@ -6,9 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state:{
         user:[],
-        posts:[]
+        posts:[],
+        isSearch:false,
+        friendSearch:[],
     },
     getters:{
+        GetFindFriendsSearch(state){
+            return state.friendSearch;
+        },
         getUserInfo(state){
             return state.user;
         },

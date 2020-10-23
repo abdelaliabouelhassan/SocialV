@@ -8,7 +8,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <router-view></router-view>
+                            <router-view v-show="!$store.state.isSearch"></router-view>
+                            <FriendSearch v-show="$store.state.isSearch"></FriendSearch>
                             <vue-progress-bar></vue-progress-bar>
                         </div>
                     </div>
@@ -21,7 +22,11 @@
 </template>
 
 <script>
+    import FriendSearch from "./socialV/search/FriendSearch";
     export default {
+        components:{
+            FriendSearch
+        },
         methods:{
           loadCurrentUser(){
               this.$Progress.start();

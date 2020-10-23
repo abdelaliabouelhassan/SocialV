@@ -26,3 +26,5 @@ Route::middleware('auth:sanctum')->post('/CreateCommentReplay','CommentControlle
 Route::middleware('auth:sanctum')->post('/LoadMoreComment','CommentController@loadMoreComment');
 Route::middleware('auth:sanctum')->post('/LikePost','LikeController@store');
 Route::middleware('auth:sanctum')->post('/Translate','TranslateController@TranslateText');
+Route::middleware('auth:sanctum')->post('/Search','SearchController@SearchBar');
+Route::middleware('auth:sanctum')->post('/AddFriend','FriendShipsController@send_a_friend_request');

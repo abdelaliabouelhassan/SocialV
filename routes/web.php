@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -15,7 +16,26 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/test',function (){
 
+    $user1 = User::find(1);
+    $user2 = User::find(3);
+
+   $user1->befriend($user2);
+ return   $user2->getFriends();
+//  return  $user1->getAllFriendships();
+
+//      $user1->hasSentFriendRequestTo($user2);
+
+//    $user2->acceptFriendRequest($user1);
+//    $user1->unfriend($user2);
+//    $user1->blockFriend($user2);
+//    $user1->unblockFriend($user2);
+//    $user1->isFriendWith($user2);
+
+
+
+});
 
 
 Route::post('/email/verification-notification', function (Request $request) {

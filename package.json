@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@morioh/v-lightbox": "^1.0.3",
+        "@trevoreyre/autocomplete-vue": "^2.2.0",
         "babel-plugin-transform-react-jsx": "^6.24.1",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",

@@ -14,10 +14,11 @@
                     </div>
                 </div>
                 <div class="iq-search-bar">
-                    <form action="#" class="searchbox">
-                        <input type="text" class="text search-input" placeholder="Type here to search...">
+                    <div class="searchbox">
+                        <input type="text" class="text search-input" placeholder="Type here to search..." @keyup="search" v-model="data">
                         <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                    </form>
+
+                    </div>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-label="Toggle navigation">
                     <i class="ri-menu-3-line"></i>
@@ -326,7 +327,11 @@
 <script>
     import {mapGetters} from 'vuex'
     export default {
-
+            data(){
+                return{
+                    data:[],
+                }
+            },
             methods:{
                 logout(){
                     this.$Progress.start();
@@ -337,7 +342,24 @@
                         this.$Progress.fail()
                         console.log(error)
                     })
-                }
+                },
+                search() {
+                    if(this.data.length == 0){
+                        this.$store.state.isSearch = false;
+
+                    }else{
+                        this.$store.state.isSearch = true;
+                    }
+                    this.axios.post('/api/Search',{q:this.data}).then((response)=>{
+                        this.$store.state.friendSearch = response.data
+                        console.log(response.data)
+                    }).catch((error)=>{
+                        console.log(error)
+                    });
+
+                },
+
+
             },
             computed:{
                 ...mapGetters([
