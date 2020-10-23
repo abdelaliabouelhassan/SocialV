@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Hootlex\Friendships\FriendshipsServiceProvider::class,
+        Multicaret\Acquaintances\AcquaintancesServiceProvider::class,
 
         /*
          * Application Service Providers...

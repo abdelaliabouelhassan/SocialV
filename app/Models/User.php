@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
+use Multicaret\Acquaintances\Traits\Friendable;
 
 class User extends Authenticatable  implements MustVerifyEmail
 {
@@ -21,6 +21,7 @@ class User extends Authenticatable  implements MustVerifyEmail
     use TwoFactorAuthenticatable;
     use Searchable;
     use Friendable;
+
 
 
     public function searchableAs()
