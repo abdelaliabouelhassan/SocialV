@@ -38,89 +38,7 @@
                                 <i class="ri-home-line"></i>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line"></i></a>
-                            <div class="iq-sub-dropdown iq-sub-dropdown-large">
-                                <div class="iq-card shadow-none m-0">
-                                    <div class="iq-card-body p-0 ">
-                                        <div class="bg-primary p-3">
-                                            <h5 class="mb-0 text-white">Friend Request<small class="badge  badge-light float-right pt-1">4</small></h5>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Jaques Amole</h6>
-                                                        <p class="mb-0">40  friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Lucy Tania</h6>
-                                                        <p class="mb-0">12  friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Manny Petty</h6>
-                                                        <p class="mb-0">3  friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="iq-friend-request">
-                                            <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-                                                <div class="d-flex align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Marsha Mello</h6>
-                                                        <p class="mb-0">15  friends</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-                                                    <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="#" class="mr-3 btn text-primary">View More Request</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        <FriendRequest></FriendRequest>
                         <li class="nav-item">
                             <a href="#" class="search-toggle las la-bell">
                                 <span class="bg-danger dots"></span>
@@ -325,6 +243,7 @@
 </template>
 
 <script>
+    import FriendRequest from "../socialV/notification/FriendRequest";
     import {mapGetters} from 'vuex'
     export default {
             data(){
@@ -332,6 +251,9 @@
                     data:[],
                 }
             },
+        components:{
+            FriendRequest
+        },
             methods:{
                 logout(){
                     this.$Progress.start();
@@ -344,6 +266,7 @@
                     })
                 },
                 search() {
+                    this.$store.state.friendSearch = [];
                     if(this.data.length == 0){
                         this.$store.state.isSearch = false;
 

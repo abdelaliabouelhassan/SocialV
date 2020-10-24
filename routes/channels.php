@@ -24,3 +24,7 @@ Broadcast::channel('Likes', function ($user) {
 Broadcast::channel('CommentTyping', function ($user) {
     return auth('sanctum')->check();
 });
+
+Broadcast::channel('SendFriendRequest', function ($user) {
+    return auth('sanctum')->check();
+});

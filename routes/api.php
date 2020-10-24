@@ -28,3 +28,8 @@ Route::middleware('auth:sanctum')->post('/LikePost','LikeController@store');
 Route::middleware('auth:sanctum')->post('/Translate','TranslateController@TranslateText');
 Route::middleware('auth:sanctum')->post('/Search','SearchController@SearchBar');
 Route::middleware('auth:sanctum')->post('/AddFriend','FriendShipsController@send_a_friend_request');
+Route::middleware('auth:sanctum')->post('/CancelRequest','FriendShipsController@Cancel_a_friend_request');
+Route::middleware('auth:sanctum')->get('/LoadFriendRequests','FriendShipsController@LoadFriendRequests');
+Route::middleware('auth:sanctum')->post('/DeleteRequest','FriendShipsController@DeleteRequest');
+Route::middleware('auth:sanctum')->post('/ConfirmRequest','FriendShipsController@ConfirmRequest');
+Route::middleware('auth:sanctum')->post('/UnFriend','FriendShipsController@UnFriend');

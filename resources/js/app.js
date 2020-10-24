@@ -113,9 +113,9 @@ window.swalWithBootstrapButtons = swalWithBootstrapButtons
 
 const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'bottom-start',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
     onOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)

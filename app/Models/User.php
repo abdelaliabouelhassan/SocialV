@@ -29,6 +29,9 @@ class User extends Authenticatable  implements MustVerifyEmail
         return 'name';
     }
 
+
+
+
     /**
      * The attributes that are mass assignable.
      *

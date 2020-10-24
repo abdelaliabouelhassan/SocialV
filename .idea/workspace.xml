@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/socialv.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/socialv.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FriendShipsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FriendShipsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/friendships.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_22_215720_create_friendships_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_22_215721_create_friendships_groups_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/search/FriendSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/search/FriendSearch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +254,8 @@
       <workItem from="1603213164792" duration="10617000" />
       <workItem from="1603372181715" duration="4902000" />
       <workItem from="1603400848256" duration="11316000" />
-      <workItem from="1603456466764" duration="6846000" />
+      <workItem from="1603456466764" duration="18159000" />
+      <workItem from="1603537549071" duration="8932000" />
     </task>
     <servers />
   </component>
@@ -267,10 +267,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="701" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1602263612779" />
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602898425509">
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603496255899">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602898425509" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603496255899" />
     <state x="745" y="335" key="NewPhpClassDialog" timestamp="1603222915741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -283,14 +283,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="534" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1602949074325" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1603150974549">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1603491560081">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603150974549" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603406741376">
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603491560081" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603498944867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603406741376" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603498944867" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

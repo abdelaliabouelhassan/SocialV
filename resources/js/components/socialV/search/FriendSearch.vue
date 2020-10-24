@@ -10,6 +10,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Page Content  -->
             <div id="content-page" class="content-page">
                 <div class="container">
@@ -39,13 +40,13 @@
                                                         <button type="submit" class="btn btn-primary"  v-show="getUserInfo.id != fr.id" @click="addFriend(fr)" >Add Friend</button>
                                                     </span>
                                                     <span v-if="fr.isFriend && fr.Tohim == false && fr.Tome == false">
-                                                        <button type="submit" class="btn btn-danger" v-show="getUserInfo.id != fr.id">Un Friend</button>
+                                                        <button type="submit" class="btn btn-danger" v-show="getUserInfo.id != fr.id" @click="unFriend(fr)">Un Friend</button>
                                                     </span>
                                                     <span v-if="fr.Tohim && !fr.Tome">
-                                                        <button type="submit" class="btn btn-info"  v-show="getUserInfo.id != fr.id">Cancel Request</button>
+                                                        <button type="submit" class="btn btn-info"  v-show="getUserInfo.id != fr.id" @click="cancelRequest(fr)">Cancel Request</button>
                                                     </span>
                                                     <span v-if="fr.Tome && !fr.Tohim">
-                                                        <button type="submit" class="btn btn-success" v-if="fr.Tome" v-show="getUserInfo.id != fr.id">Accept Request</button>
+                                                        <button type="submit" class="btn btn-success" v-if="fr.Tome" v-show="getUserInfo.id != fr.id" @click="ConfirmRequest(fr)">Accept Request</button>
                                                     </span>
                                                     <span>
                                                           <h4 class="bg bg-info text-black-50" v-show="getUserInfo.id == fr.id">You</h4>
@@ -58,9 +59,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 text-center" v-if="GetFindFriendsSearch.length == 0">
+                            <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 </template>
 
@@ -68,12 +73,53 @@
     import {mapGetters} from "vuex";
     export default {
         methods:{
+            unFriend(Friendrequest){
+                this.axios.post('/api/UnFriend',{user_id:Friendrequest.id}).then((response) => {
+                    console.log(response)
+                    this.$Progress.finish();
+                    Friendrequest.isFriend = false
+                    Friendrequest.Tohim = false
+                    Friendrequest.Tome = false
+                }).catch((error)=>{
+                    this.$Progress.fail()
+                    console.log(error)
+                })
+            },
+            ConfirmRequest(Friendrequest){
+                this.$Progress.start();
+                this.axios.post('/api/ConfirmRequest',{user_id:Friendrequest.id}).then((response) => {
+                    console.log(response)
+                    this.$Progress.finish();
+                    Friendrequest.isFriend = true
+                    Friendrequest.Tohim = false
+                    Friendrequest.Tome = false
+                    something.$emit('loadRequest');
+                }).catch((error)=>{
+                    this.$Progress.fail()
+                    console.log(error)
+                })
+            },
+            cancelRequest(Friendrequest){
+                this.$Progress.start();
+                this.axios.post('/api/CancelRequest',{user_id:Friendrequest.id}).then((response) => {
+                    Friendrequest.Tohim = false;
+                    console.log(response)
+                    console.log(Friendrequest)
+                    this.$Progress.finish();
+                }).catch((error)=>{
+                    console.log(error)
+                    this.$Progress.fail()
+                });
+            },
             addFriend(Friend){
+                this.$Progress.start();
                 this.axios.post('/api/AddFriend',{user_id:Friend.id}).then((response) => {
                         Friend.Tohim = true;
                         console.log(response)
+                    this.$Progress.finish();
                 }).catch((error)=>{
                     console.log(error)
+                    this.$Progress.fail()
                 });
             }
         },
