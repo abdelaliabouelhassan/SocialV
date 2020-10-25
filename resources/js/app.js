@@ -57,6 +57,8 @@ Vue.use(VueReact);
 import FbImageLibrary from 'react-fb-image-grid'
 Vue.react('FbImageLibrary', FbImageLibrary);
 
+
+
 /*end react*/
 
 /*vue-infinite-loading  load more*/
@@ -130,6 +132,10 @@ window.Toast = Toast
 /*emit*/
 window.something = new Vue();
 /*end emit*/
+/*VTooltip*/
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip)
+/*VTooltip*/
 
 
 

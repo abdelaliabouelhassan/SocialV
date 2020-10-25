@@ -3,14 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FriendShipsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FriendShipsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/search/FriendSearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/search/FriendSearch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,6 +253,8 @@
       <workItem from="1603400848256" duration="11316000" />
       <workItem from="1603456466764" duration="18159000" />
       <workItem from="1603537549071" duration="8932000" />
+      <workItem from="1603559512465" duration="4636000" />
+      <workItem from="1603634365497" duration="11763000" />
     </task>
     <servers />
   </component>
@@ -283,10 +282,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="534" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1602949074325" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1603491560081">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1603561294160">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603491560081" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603561294160" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603498944867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

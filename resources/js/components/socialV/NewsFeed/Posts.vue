@@ -65,19 +65,9 @@
                         <read-more more-str="read more" :text="post.body" link="javascript:void(0)" less-str="read less" :max-chars="1000"></read-more>
                     </p>
                 </div>
-                <div style="display: none" v-for="(path) in post.files">
-                    <p style="display: none">{{filetype = path.type}}</p>
-                    <span v-show="false" v-if="filetype =='image'">{{images.push(path.path)}}</span>
-                </div>
-                <div class="user-post"  v-if="filetype =='image'">
-                    <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>
-                    <span v-show="false">{{images = []}}</span>
-                </div>
-                <div class="user-post"  v-else>
-                    <video controls  v-for="(path) in post.files" class="img-fluid rounded w-100" >
-                        <source :src="path.path" type="video/mp4">
-                    </video>
-                </div>
+
+                <PostAttachments :files="post.files"></PostAttachments>
+
                 <div class="comment-area mt-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="like-block position-relative d-flex align-items-center">
@@ -116,10 +106,6 @@
                                              <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                                              {{post.commentCount}} Comment
                                              </span>
-<!--                                    <div class="dropdown-menu">-->
-<!--                                        <a class="dropdown-item" v-for="comment in post.comments"  href="#">{{comment.user.name}}</a>-->
-<!--                                        <a class="dropdown-item" href="#">Other</a>-->
-<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -174,14 +160,7 @@
                                     </ul>
 
                                     <!--     comment form       -->
-                                    <form class="comment-text d-flex align-items-center mt-3"  action="javascript:void(0);" v-if="showCommentForms == comment">
-                                        <input type="text" class="form-control" v-model="commentReplayText[index1]" @keyup="isTyping(post)" @keyup.enter="createReplayComment(index1,comment.id)">
-                                        <div class="comment-attagement d-flex">
-                                            <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
-                                            <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
-                                            <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
-                                        </div>
-                                    </form>
+                                    <CommentReplayInput :post="post" :showCommentForms="showCommentForms" :comment="comment" ></CommentReplayInput>
                                 </div>
                             </div>
 
@@ -194,14 +173,7 @@
                         <span v-if="showIsTypin == post.id" style="background-color:gray; border-radius: 5px;color: white;">Some One is Typing...</span>
 
                     </ul>
-                    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);" v-if="showPostForms != post">
-                        <input type="text" class="form-control rounded" v-model="commentText[index]" @keyup="isTyping(post)" @keyup.enter="createComment(index,post.id)">
-                        <div class="comment-attagement d-flex">
-                            <a href="javascript:void(0);"><i class="ri-link mr-3"></i></a>
-                            <a href="javascript:void(0);"><i class="ri-user-smile-line mr-3"></i></a>
-                            <a href="javascript:void(0);"><i class="ri-camera-line mr-3"></i></a>
-                        </div>
-                    </form>
+                    <CommentInput :post="post" :showPostForms="showPostForms"></CommentInput>
                 </div>
             </div>
         </div>
@@ -213,27 +185,27 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import uniq from 'lodash/uniq'
-
+    import PostAttachments from "./PostAttachments";
+    import CommentInput from "./CommentInput";
+    import CommentReplayInput from "./CommentReplayInput";
     export default {
        props:['posts','lastPage','load'],
+        components:{
+            PostAttachments,
+            CommentInput,
+            CommentReplayInput,
+        },
         data(){
            return{
-               images:[],
-               filetype:'',
                isliked:false,
                post:'',
                showLoadGif:null,
                showCommentForms:null,
                showPostForms:null,
-               commentText:[],
-               commentReplayText:[],
                hideReplay:null,
                typing:false,
                showIsTypin:null,
                page: 2,
-
-
            }
 
         },
@@ -310,16 +282,6 @@
                     this.hideReplay = replay;
                 }
             },
-            createReplayComment(index,comment_id){
-                if(this.commentReplayText == ""){
-                    return
-                }
-                this.axios.post('/api/CreateCommentReplay',{comment_id:comment_id,replay:this.commentReplayText[index]}).then((response) => {
-                    this.commentReplayText = [];
-                }).catch((error)=>{
-                    console.log(error)
-                })
-            },
             HideCommentForm(){
                 this.showCommentForms = null
                 this.showPostForms = null
@@ -363,16 +325,6 @@
                    console.log(error)
                })
            },
-            createComment(index,post_id){
-                if(this.commentText == ""){
-                    return
-                }else{
-                    this.axios.post('/api/CreateComment',{comment:this.commentText[index],post_id:post_id}).then((response) => {
-                        this.commentText = [];
-                    }).catch((error)=>{
-                    })
-                }
-            },
             checkLikeEvent(e) {
 
                 this.posts.forEach(post => {
@@ -398,14 +350,6 @@
                     }
 
                 });
-            },
-            isTyping(post) {
-                let channel = Echo.private('CommentTyping');
-                setTimeout(function() {
-                    channel.whisper('typing', {
-                        post_id:post.id
-                    });
-                }, 100);
             },
         },
         computed:{
