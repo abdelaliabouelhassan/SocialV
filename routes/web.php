@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 |
 */
 
+
+
 Route::get('/test',function (){
 
     $user1 = User::find(1);
@@ -35,6 +37,16 @@ Route::get('/test',function (){
 
 
 
+});
+
+Route::post('/webhook',function (Request $request){
+    $user_id =  $request->events->user_id;
+    $type = $request->events->name;
+    if($type == 'member_removed'){
+        $user = User::find($user_id);
+        $user->status = 'offline';
+        $user->save();
+    }
 });
 
 
@@ -68,6 +80,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('{path}',function (){
     return view('dashboard');
 })->where('path','[a-zA-Z0-9-/]+');
 
-Route::post('/webhook',function (Request $request){
-            return $request->all();
-});
+
