@@ -75,4 +75,9 @@ class FriendShipsController extends Controller
               }
             return $data;
     }
+
+    public function getFriends(){
+        $user = auth('sanctum')->user();
+      return  $user->getFriends();
+    }
 }

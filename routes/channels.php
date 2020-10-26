@@ -28,3 +28,6 @@ Broadcast::channel('CommentTyping', function ($user) {
 Broadcast::channel('SendFriendRequest', function ($user) {
     return auth('sanctum')->check();
 });
+Broadcast::channel('chat',function ($user){
+    return $user;
+});

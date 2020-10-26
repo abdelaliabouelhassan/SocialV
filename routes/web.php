@@ -67,3 +67,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('{path}',function (){
     return view('dashboard');
 })->where('path','[a-zA-Z0-9-/]+');
+
+Route::post('/webhook',function (Request $request){
+            return $request->all();
+});

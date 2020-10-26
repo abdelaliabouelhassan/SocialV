@@ -33,3 +33,6 @@ Route::middleware('auth:sanctum')->get('/LoadFriendRequests','FriendShipsControl
 Route::middleware('auth:sanctum')->post('/DeleteRequest','FriendShipsController@DeleteRequest');
 Route::middleware('auth:sanctum')->post('/ConfirmRequest','FriendShipsController@ConfirmRequest');
 Route::middleware('auth:sanctum')->post('/UnFriend','FriendShipsController@UnFriend');
+Route::middleware('auth:sanctum')->get('/getFriends','FriendShipsController@getFriends');
+Route::middleware('auth:sanctum')->post('/SetUserOnline','UserController@SetUserOnline');
+Route::middleware('auth:sanctum')->post('/SetUserOffline','UserController@SetUserOffline');

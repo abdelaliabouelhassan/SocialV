@@ -4,84 +4,15 @@
             <div class="iq-card shadow-none">
                 <div class="iq-card-body p-0">
                     <div class="media-height p-3">
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/01.jpg" alt="">
+                        <div class="media align-items-center mb-4" v-for="Friends in MyFriends">
+                            <div class="iq-profile-avatar status-online" v-if="Friends.status == 'online'">
+                                <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
+                            </div>
+                            <div class="iq-profile-avatar" v-else>
+                                <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
                             </div>
                             <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Anna Sthesia</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/02.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Paul Molive</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/03.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Anna Mull</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/04.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Paige Turner</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/01.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Bob Frapples</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/02.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Barb Ackue</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-online">
-                                <img class="rounded-circle avatar-50" src="images/user/03.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Greta Life</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-away">
-                                <img class="rounded-circle avatar-50" src="images/user/04.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Ira Membrit</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center mb-4">
-                            <div class="iq-profile-avatar status-away">
-                                <img class="rounded-circle avatar-50" src="images/user/01.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Pete Sariya</a></h6>
+                                <h6 class="mb-0"><a href="#">{{Friends.name}}</a></h6>
                                 <p class="mb-0">Admin</p>
                             </div>
                         </div>
@@ -107,7 +38,56 @@
 
 <script>
     export default {
-
+        data(){
+            return {
+                MyFriends:[]
+            }
+        },
+        methods:{
+            setUserOffline(user){
+                this.MyFriends.forEach(freind=>{
+                    if(freind.id == user.id){
+                        freind.status = 'offline'
+                        this.axios.post('/api/SetUserOffline',{id:user.id}).then((response) => {
+                        }).catch((error)=>{
+                            console.log(error)
+                        })
+                    }
+                });
+            },
+            setUserOnline(user){
+                this.MyFriends.forEach(freind=>{
+                    if(freind.id == user.id){
+                        freind.status = 'online'
+                        this.axios.post('/api/SetUserOnline',{id:user.id}).then((response) => {
+                        }).catch((error)=>{
+                            console.log(error)
+                        })
+                    }
+                });
+            },
+           getFriends(){
+               this.axios.get('/api/getFriends').then((response) => {
+                   this.MyFriends = response.data;
+               }).catch((error)=>{
+                   console.log(error)
+               })
+           },
+            listen(){
+                Echo.join('chat')
+                    .joining((user) => {
+                           this.setUserOnline(user);
+                    }).leaving((user) => {
+                        this.setUserOffline(user);
+                })
+            }
+        },
+        created(){
+            this.getFriends()
+        },
+        mounted() {
+              this.listen();
+            }
     }
 </script>
 
