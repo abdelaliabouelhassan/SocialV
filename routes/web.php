@@ -39,22 +39,6 @@ Route::get('/test',function (){
 
 });
 
-Route::post('/webhook',function (Request $request){
-
-    $data =  $request->events;
-    $user_id = "";
-    $type= "";
-    foreach ($data as $userinfo){
-        $user_id =  $userinfo['user_id'];
-        $type = $userinfo["name"];
-    }
-    if($type == 'member_removed'){
-        $user = User::find($user_id);
-        $user->status = 'offline';
-        $user->save();
-    }
-    return response()->json('greate',200);
-});
 
 
 Route::post('/email/verification-notification', function (Request $request) {
@@ -87,4 +71,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('{path}',function (){
     return view('dashboard');
 })->where('path','[a-zA-Z0-9-/]+');
 
+Route::post('/webhook','WebHookController@handel'); //webhook for pusher event
 
