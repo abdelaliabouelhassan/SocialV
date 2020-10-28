@@ -1,5 +1,6 @@
 <template>
-    <div class="right-sidebar-mini right-sidebar">
+  <div>
+      <div class="right-sidebar-mini right-sidebar">
         <div class="right-sidebar-panel p-0">
             <div class="iq-card shadow-none">
                 <div class="iq-card-body p-0">
@@ -11,17 +12,8 @@
                             <div class="iq-profile-avatar" v-else>
                                 <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
                             </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">{{Friends.name}}</a></h6>
-                                <p class="mb-0">Admin</p>
-                            </div>
-                        </div>
-                        <div class="media align-items-center">
-                            <div class="iq-profile-avatar">
-                                <img class="rounded-circle avatar-50" src="images/user/02.jpg" alt="">
-                            </div>
-                            <div class="media-body ml-3">
-                                <h6 class="mb-0"><a href="#">Monty Carlo</a></h6>
+                            <div class="media-body ml-3" @click="StartChat(Friends)">
+                                <h6 class="mb-0"><a href="#" style="text-decoration: none;">{{Friends.name}}</a></h6>
                                 <p class="mb-0">Admin</p>
                             </div>
                         </div>
@@ -34,20 +26,37 @@
             </div>
         </div>
     </div>
+
+        <!-- Chat Box     -->
+        <ChatBox v-show="showChatBox" :Friend="Friend" ></ChatBox>
+ </div>
+
 </template>
 
 <script>
+
+import ChatBox from "../socialV/Chat/ChatBox";
     export default {
+        components:{
+            ChatBox,
+        },
         data(){
             return {
-                MyFriends:[]
+                MyFriends:[],
+                showChatBox:false,
+                Friend:[],
             }
         },
         methods:{
+            StartChat(Friend){
+              this.showChatBox = true;
+              this.Friend = Friend;
+            },
             setUserOffline(user){
                 this.MyFriends.forEach(freind=>{
                     if(freind.id == user.id){
                         freind.status = 'offline'
+                        //this is not necessary to send request to server again cuz we are using webhook
                         this.axios.post('/api/SetUserOffline',{id:user.id}).then((response) => {
                         }).catch((error)=>{
                             console.log(error)
@@ -59,6 +68,7 @@
                 this.MyFriends.forEach(freind=>{
                     if(freind.id == user.id){
                         freind.status = 'online'
+                        //this is not necessary to send request to server again cuz we are using webhook
                         this.axios.post('/api/SetUserOnline',{id:user.id}).then((response) => {
                         }).catch((error)=>{
                             console.log(error)
@@ -92,5 +102,7 @@
 </script>
 
 <style scoped>
+
+
 
 </style>
