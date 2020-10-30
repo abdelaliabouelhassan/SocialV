@@ -6,9 +6,9 @@
                     <div class="sidebar-toggle">
                         <i class="ri-menu-3-line"></i>
                     </div>
-                    <div class="avatar chat-user-profile m-0 mr-3">
-                        <img src="images/user/05.jpg" alt="avatar" class="avatar-50 ">
-                        <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill text-success"></i></span>
+                    <div class="avatar chat-user-profile m-0 mr-3" >
+                        <img :src="Friend.profile_photo_url" alt="avatar" class="avatar-50 " style="margin-left: 8px">
+                        <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill" :class="{'text-success':Friend.status == 'online'}"></i></span>
                     </div>
                     <h5 class="mb-0">{{Friend.name}}</h5>
                 </div>
@@ -56,13 +56,13 @@
                     </div>
                 </div>
                 <div class="chat-header-icons d-flex">
-                    <a href="javascript:void();" class="chat-icon-phone iq-bg-primary">
+                    <a href="javascript:void(0);" class="chat-icon-phone iq-bg-primary">
                         <i class="ri-phone-line"></i>
                     </a>
-                    <a href="javascript:void();" class="chat-icon-video iq-bg-primary">
+                    <a href="javascript:void(0);" class="chat-icon-video iq-bg-primary">
                         <i class="ri-vidicon-line"></i>
                     </a>
-                    <a href="javascript:void();" class="chat-icon-delete iq-bg-primary">
+                    <a href="javascript:void(0);" class="chat-icon-delete iq-bg-primary">
                         <i class="ri-delete-bin-line"></i>
                     </a>
                     <span class="dropdown iq-bg-primary">
@@ -76,109 +76,68 @@
                 </div>
             </header>
 
-            <div class="chat-content scroller" style="background:url('../images/page-img/100.jpg')">
-                <div class="chat">
+            <div class="chat-content scroller" id="scroller" style="background:url('../images/page-img/100.jpg')">
+                <div class="chat" v-for="chat in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}">
                     <div class="chat-user">
                         <a class="avatar m-0">
-                            <img src="images/user/1.jpg" alt="avatar" class="avatar-35 ">
+                            <img :src="Friend.profile_photo_url" v-if="Friend.id == chat.from" alt="avatar" class="avatar-35 ">
+                            <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">
                         </a>
-                        <span class="chat-time mt-1">6:45</span>
+                        <span class="chat-time mt-1">{{chat.created_at}}</span>
                     </div>
                     <div class="chat-detail">
                         <div class="chat-message">
-                            <p>How can we help? We're here for you! 😄</p>
+                            <p v-if="chat.type == 'message'" style="font-size: 19px">{{chat.message}}</p>
+                            <p style="font-size: 70px" v-if="chat.type == 'emoji'">{{chat.message}}</p>
+<!--                            <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>-->
                         </div>
+
                     </div>
                 </div>
-                <div class="chat chat-left">
+                <div class="chat" v-show="isSent">
                     <div class="chat-user">
                         <a class="avatar m-0">
-                            <img src="images/user/05.jpg" alt="avatar" class="avatar-35 ">
+                            <img :src="getUserInfo.profile_photo_url" alt="avatar" class="avatar-35 ">
                         </a>
-                        <span class="chat-time mt-1">6:48</span>
+                        <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 60px;">
+
                     </div>
                     <div class="chat-detail">
                         <div class="chat-message">
-                            <p>Hey John, I am looking for the best admin template.</p>
-                            <p>Could you please help me to find it out? 🤔</p>
+                            <p>{{message}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="chat">
+                <div class="chat chat-left" v-if="typing && typingTo == Friend.id">
                     <div class="chat-user">
                         <a class="avatar m-0">
-                            <img src="images/user/1.jpg" alt="avatar" class="avatar-35 ">
+                            <img :src="Friend.profile_photo_url"  alt="avatar" class="avatar-35 ">
                         </a>
-                        <span class="chat-time mt-1">6:49</span>
                     </div>
                     <div class="chat-detail">
-                        <div class="chat-message">
-                            <p>Absolutely!</p>
-                            <p>SocialV Dashboard is the responsive bootstrap 4 admin template.</p>
+                        <div class="media-body ml-3'">
+                            <div class="chat-message">
+
+                            <vue-typed-js :strings="['Is Typing...😄']">
+                                <h5 class="typing"></h5>
+                            </vue-typed-js>
+                        </div>
                         </div>
                     </div>
                 </div>
-                <div class="chat chat-left">
-                    <div class="chat-user">
-                        <a class="avatar m-0">
-                            <img src="images/user/05.jpg" alt="avatar" class="avatar-35 ">
-                        </a>
-                        <span class="chat-time mt-1">6:52</span>
-                    </div>
-                    <div class="chat-detail">
-                        <div class="chat-message">
-                            <p>Looks clean and fresh UI.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat">
-                    <div class="chat-user">
-                        <a class="avatar m-0">
-                            <img src="images/user/1.jpg" alt="avatar" class="avatar-35 ">
-                        </a>
-                        <span class="chat-time mt-1">6:53</span>
-                    </div>
-                    <div class="chat-detail">
-                        <div class="chat-message">
-                            <p>Thanks, from ThemeForest.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat chat-left">
-                    <div class="chat-user">
-                        <a class="avatar m-0">
-                            <img src="images/user/05.jpg" alt="avatar" class="avatar-35 ">
-                        </a>
-                        <span class="chat-time mt-1">6:54</span>
-                    </div>
-                    <div class="chat-detail">
-                        <div class="chat-message">
-                            <p>I will purchase it for sure. 👍</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat">
-                    <div class="chat-user">
-                        <a class="avatar m-0">
-                            <img src="images/user/1.jpg" alt="avatar" class="avatar-35 ">
-                        </a>
-                        <span class="chat-time mt-1">6:56</span>
-                    </div>
-                    <div class="chat-detail">
-                        <div class="chat-message">
-                            <p>Okay Thanks..</p>
-                        </div>
-                    </div>
-                </div>
+                <VEmojiPicker @select="selectEmoji" v-show="showEmoji"/>
             </div>
             <div class="chat-footer p-3 bg-white">
+                <div class="attachmnt">
+                    <img  class="item" src="https://cdn.hipwallpaper.com/i/77/4/gIx0SV.jpg" style="width: 50px;height: 50px ;cursor: pointer" alt="">
+                </div>
                 <form class="d-flex align-items-center"  action="javascript:void(0);">
                     <div class="chat-attagement d-flex">
-                        <a href="javascript:void();"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                        <a href="javascript:void();"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);" @click="openEmoji"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
                     </div>
-                    <input type="text" class="form-control mr-3" placeholder="Type your message">
-                    <button type="submit" class="btn btn-primary d-flex align-items-center p-2"><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
+                    <input type="text" class="form-control mr-3" placeholder="Type your message" @keydwon.enter="SendMessage" @keydown="isTyping()"  v-model="message">
+                    <button type="submit" class="btn btn-primary d-flex align-items-center p-2" @click="SendMessage" ><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
                 </form>
             </div>
         </div>
@@ -187,9 +146,124 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
+
     export default {
         props:['Friend','chat'],
-        name: "ChatBox"
+        name: "ChatBox",
+        data(){
+            return{
+                message:'',
+                ChatMessages:[],
+                typing: false,
+                typingTo:0,
+                to:0,
+                isSent:false,
+                showEmoji:false,
+                isOnlyEmot:false,
+                images:[
+                    'https://cdn.hipwallpaper.com/i/77/4/gIx0SV.jpg'
+                ]
+            }
+        },
+        computed:{
+            ...mapGetters([
+                'getUserInfo'
+            ])
+        },
+        methods:{
+            openEmoji(){
+                setTimeout(this.ScrollToEnd,100)
+                this.showEmoji = !this.showEmoji
+            },
+            selectEmoji(emoji) {
+                if(this.message == ''){
+                    this.isOnlyEmot = true;
+                    this.message = emoji.data
+                }else{
+                    this.isOnlyEmot = false;
+                    this.message = this.message + ' ' + emoji.data
+                }
+            },
+            SendMessage(){
+                if(this.message == ''){
+                    return
+                }else{
+                    var type = ""
+                    if(this.isOnlyEmot){
+                        type = "emoji";
+                    }else {
+                        type = "message";
+                    }
+                    this.showEmoji = false
+                    this.isSent = true
+                    setTimeout(this.ScrollToEnd,100)
+                    this.axios.post('/api/SendMessage',{message:this.message,to:this.Friend.id,type:type}).then((response) => {
+                        this.ChatMessages.unshift(response.data)
+                        this.isSent = false
+                        this.message= ''
+                        this.showEmoji = false
+                        setTimeout(this.ScrollToEnd,100)
+                    }).catch((error)=>{
+                        this.isSent = false
+                        console.log(error)
+                    });
+                }
+            },
+            GetMessage(user){
+                this.axios.post('/api/GetMessage',{user_id:user.id}).then((response) => {
+                    this.ChatMessages = response.data.data;
+                    setTimeout( this.ScrollToEnd,100)
+                }).catch((error)=>{
+                    console.log(error)
+                });
+            },
+            ScrollToEnd(){
+                document.getElementById('scroller').scrollTo(0,999999);
+            },
+            listen(){
+                let _this = this;
+                Echo.private('ChatMessages.' + this.getUserInfo.id)
+                    .listen('MessageEvent', (e) => {
+                        this.ChatMessages.unshift(e.message)
+                        this.typing = false;
+                        setTimeout(this.ScrollToEnd,100)
+                    })
+                .listenForWhisper('typing', (e) => {
+                    this.typing = e.typing;
+                    this.typingTo = e.to;
+                    document.getElementById('scroller').scrollTo(0,999999);
+                    // remove is typing indicator after 0.9s
+                    setTimeout(function() {
+                        _this.typing = false
+                    }, 10000);
+                });
+            },
+            isTyping() {
+                this.isOnlyEmot = false;
+                let channel = Echo.private('ChatMessages.' + this.to);
+                document.getElementById('scroller').scrollTo(0,999999);
+                var vm = this
+                setTimeout(function() {
+                    channel.whisper('typing', {
+                        typing: true,
+                        to:vm.getUserInfo.id
+                    });
+                }, 100);
+            },
+        },
+        created(){
+            something.$on('getMessageEvent',(Friend)=>{
+                this.message= ''
+                this.showEmoji = false
+                this.to = Friend.id
+                this.GetMessage(Friend);
+            });
+        },
+        mounted() {
+            setTimeout( this.listen,9000);
+        },
     }
 </script>
 
@@ -229,6 +303,14 @@
         border-color: royalblue;
     }
 
+    .attachmnt{
+        background-color: darkgray;
+        margin-bottom: 10px;
+    }
+    .item:hover {
+        border:2px solid red;
+        background: #ff443d;
+    }
 
 
 </style>

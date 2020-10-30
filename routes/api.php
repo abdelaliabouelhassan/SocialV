@@ -36,3 +36,5 @@ Route::middleware('auth:sanctum')->post('/UnFriend','FriendShipsController@UnFri
 Route::middleware('auth:sanctum')->get('/getFriends','FriendShipsController@getFriends');
 Route::middleware('auth:sanctum')->post('/SetUserOnline','UserController@SetUserOnline');
 Route::middleware('auth:sanctum')->post('/SetUserOffline','UserController@SetUserOffline');
+Route::middleware('auth:sanctum')->post('/SendMessage','ChatController@SendMessage');
+Route::middleware('auth:sanctum')->post('/GetMessage','ChatController@getMessage');

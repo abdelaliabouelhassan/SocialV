@@ -31,3 +31,7 @@ Broadcast::channel('SendFriendRequest', function ($user) {
 Broadcast::channel('chat',function ($user){
     return $user;
 });
+
+Broadcast::channel('ChatMessages.{id}',function ($user){
+    return auth('sanctum')->check();
+});

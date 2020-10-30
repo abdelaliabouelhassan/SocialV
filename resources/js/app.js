@@ -50,16 +50,23 @@ Vue.use(ReadMore);
 
 /*End Read More*/
 
+/*VEmojiPicker*/
+import VEmojiPicker from 'v-emoji-picker';
+Vue.use(VEmojiPicker);
+/*End VEmojiPicker*/
+
 
 /*react */
 import VueReact from 'vue-react';
 Vue.use(VueReact);
 import FbImageLibrary from 'react-fb-image-grid'
 Vue.react('FbImageLibrary', FbImageLibrary);
-
-
-
 /*end react*/
+
+/*VueTypedJs*/
+import VueTypedJs from 'vue-typed-js'
+Vue.use(VueTypedJs)
+/*End VueTypedJs*/
 
 /*vue-infinite-loading  load more*/
 

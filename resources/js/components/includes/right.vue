@@ -13,7 +13,7 @@
                                 <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
                             </div>
                             <div class="media-body ml-3" @click="StartChat(Friends)">
-                                <h6 class="mb-0"><a href="#" style="text-decoration: none;">{{Friends.name}}</a></h6>
+                                <h6 class="mb-0"><a href="javascript:void(0)" style="text-decoration: none;">{{Friends.name}}</a></h6>
                                 <p class="mb-0">Admin</p>
                             </div>
                         </div>
@@ -51,6 +51,7 @@ import ChatBox from "../socialV/Chat/ChatBox";
             StartChat(Friend){
               this.showChatBox = true;
               this.Friend = Friend;
+              something.$emit('getMessageEvent',Friend);
             },
             setUserOffline(user){
                 this.MyFriends.forEach(freind=>{
