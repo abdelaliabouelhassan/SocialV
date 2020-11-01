@@ -7,9 +7,10 @@
             <div id="content-page" class="content-page">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <router-view v-show="!$store.state.isSearch"></router-view>
+                        <div class="col-lg-12" v-if="$store.state.user.length != 0">
+                            <router-view v-show="!$store.state.isSearch && !$store.state.showCall"></router-view>
                             <FriendSearch v-show="$store.state.isSearch"></FriendSearch>
+                            <VideoCall v-show="$store.state.showCall"></VideoCall>
                             <vue-progress-bar></vue-progress-bar>
                         </div>
                     </div>
@@ -23,9 +24,11 @@
 
 <script>
     import FriendSearch from "./socialV/search/FriendSearch";
+    import VideoCall from "./socialV/Chat/VideoCall";
     export default {
         components:{
-            FriendSearch
+            FriendSearch,
+            VideoCall
         },
         methods:{
           loadCurrentUser(){

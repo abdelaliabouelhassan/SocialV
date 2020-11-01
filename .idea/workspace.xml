@@ -4,7 +4,12 @@
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/right.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +279,8 @@
       <workItem from="1604146278424" duration="590000" />
       <workItem from="1604148374809" duration="11533000" />
       <workItem from="1604186337427" duration="3502000" />
-      <workItem from="1604234537720" duration="3459000" />
+      <workItem from="1604234537720" duration="5710000" />
+      <workItem from="1604245639610" duration="8773000" />
     </task>
     <servers />
   </component>

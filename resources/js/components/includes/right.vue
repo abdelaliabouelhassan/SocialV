@@ -95,6 +95,9 @@ import ChatBox from "../socialV/Chat/ChatBox";
         },
         created(){
             this.getFriends()
+            something.$on('Call',(Friend)=>{
+                this.showChatBox = false;
+            });
         },
         mounted() {
               this.listen();

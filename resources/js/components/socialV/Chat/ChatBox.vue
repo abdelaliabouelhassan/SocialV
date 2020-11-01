@@ -59,7 +59,7 @@
                     <a href="javascript:void(0);" class="chat-icon-phone iq-bg-primary">
                         <i class="ri-phone-line"></i>
                     </a>
-                    <a href="javascript:void(0);" class="chat-icon-video iq-bg-primary">
+                    <a href="javascript:void(0);" @click="Call(Friend)" class="chat-icon-video iq-bg-primary">
                         <i class="ri-vidicon-line"></i>
                     </a>
                     <a href="javascript:void(0);" class="chat-icon-delete iq-bg-primary">
@@ -158,12 +158,11 @@
 <script>
     import {mapGetters} from "vuex";
     import ChatAttachments from "../NewsFeed/ChatAttachments";
-
     export default {
         props:['Friend','chat'],
         name: "ChatBox",
         components:{
-            ChatAttachments
+            ChatAttachments,
         },
         data(){
             return{
@@ -188,6 +187,10 @@
             ]),
         },
         methods:{
+            Call(user){
+                this.$store.state.showCall = true;
+                something.$emit('Call',user);
+            },
             Seen(){
                 var isread = this.ChatMessages[0].read;
                 var isme = this.ChatMessages[0].from;
@@ -312,7 +315,7 @@
                 }) .listenForWhisper('seen', (e) => {
                     this.ChatMessages[0].read = "yes";
                     document.getElementById('scroller').scrollTo(0,999999);
-                });;
+                });
             },
             isTyping() {
                 this.isOnlyEmot = false;

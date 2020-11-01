@@ -8,6 +8,7 @@ export default new Vuex.Store({
         user:[],
         posts:[],
         isSearch:false,
+        showCall:false,
         friendSearch:[],
     },
     getters:{

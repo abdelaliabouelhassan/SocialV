@@ -37,12 +37,14 @@
                         trickle: false
                     });
                     peer.on('signal', (data) => {
+                        console.log('signal')
                         this.channel.trigger(`client-signal-${userId}`, {
                             userId: this.$store.state.user.id,
                             data: data
                         });
                     })
                         .on('stream', (stream) => {
+                            console.log('stream')
                             const videoThere = this.$refs['video-there'];
                             try {
                                 videoThere.srcObject = stream;
@@ -51,6 +53,7 @@
                             }
                         })
                         .on('close', () => {
+                            console.log('close')
                             const peer = this.peers[userId];
                             if(peer !== undefined) {
                                 peer.destroy();
