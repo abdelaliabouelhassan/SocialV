@@ -38,3 +38,4 @@ Route::middleware('auth:sanctum')->post('/SetUserOnline','UserController@SetUser
 Route::middleware('auth:sanctum')->post('/SetUserOffline','UserController@SetUserOffline');
 Route::middleware('auth:sanctum')->post('/SendMessage','ChatController@SendMessage');
 Route::middleware('auth:sanctum')->post('/GetMessage','ChatController@getMessage');
+Route::middleware('auth:sanctum')->post('/MessageSeen','ChatController@MessageSeen');

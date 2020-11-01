@@ -10,4 +10,8 @@ class Chat extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function attachments(){
+        return $this->hasMany('App\Models\PostUpload','post_id');
+    }
 }

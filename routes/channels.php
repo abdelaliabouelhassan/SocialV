@@ -35,3 +35,7 @@ Broadcast::channel('chat',function ($user){
 Broadcast::channel('ChatMessages.{id}',function ($user){
     return auth('sanctum')->check();
 });
+
+Broadcast::channel('ChatVedioCall.{id}',function ($user){
+    return auth('sanctum')->check();
+});

@@ -22,6 +22,7 @@ class GetMessage extends JsonResource
           'message'=>$this->message,
           'type'=>$this->type,
           'attachment'=>$this->attachment,
+          'attachments'=>$this->attachments,
           'read'=>$this->read,
           'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$this->created_at)->diffForHumans(),
 

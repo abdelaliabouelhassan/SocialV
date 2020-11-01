@@ -77,22 +77,30 @@
             </header>
 
             <div class="chat-content scroller" id="scroller" style="background:url('../images/page-img/100.jpg')">
-                <div class="chat" v-for="chat in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}">
+                <div class="chat" v-for="(chat,index) in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}">
                     <div class="chat-user">
                         <a class="avatar m-0">
                             <img :src="Friend.profile_photo_url" v-if="Friend.id == chat.from" alt="avatar" class="avatar-35 ">
-                            <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">
+<!--                            <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">-->
                         </a>
-                        <span class="chat-time mt-1">{{chat.created_at}}</span>
+
                     </div>
                     <div class="chat-detail">
                         <div class="chat-message">
                             <p v-if="chat.type == 'message'" style="font-size: 19px">{{chat.message}}</p>
                             <p style="font-size: 70px" v-if="chat.type == 'emoji'">{{chat.message}}</p>
-<!--                            <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>-->
+                            <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
                         </div>
+                    </div>
+                    <div>
+                        <span class="chat-time mt-1">-----{{chat.created_at}}-----
+                     <span v-if="index == ChatMessages.length -1" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
+                        </span>
+                        <span v-if="index == ChatMessages.length - 2" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
+                        </span>
 
                     </div>
+
                 </div>
                 <div class="chat" v-show="isSent">
                     <div class="chat-user">
@@ -129,14 +137,16 @@
             </div>
             <div class="chat-footer p-3 bg-white">
                 <div class="attachmnt">
-                    <img  class="item" src="https://cdn.hipwallpaper.com/i/77/4/gIx0SV.jpg" style="width: 50px;height: 50px ;cursor: pointer" alt="">
+                    <img  v-for="(img,index) in image" class="img-thumbnail item" :src="img" style="width: 50px;height: 50px ;cursor: pointer" @click="deleteImage(index)" alt="">
+                    <video v-for="(vid,index) in video" :src="vid" class="embed-responsive-item item" style="width: 90px;height: 90px;cursor:pointer " @click="Deletevid(index)"></video>
                 </div>
                 <form class="d-flex align-items-center"  action="javascript:void(0);">
                     <div class="chat-attagement d-flex">
                         <a href="javascript:void(0);" @click="openEmoji"><i class="fa fa-smile-o pr-3" aria-hidden="true"></i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
+                        <a href="javascript:void(0);" @click="$refs.UploadAttachment.click()"><i class="fa fa-paperclip pr-3" aria-hidden="true"></i></a>
+                        <input type="file" style="display:none" @change="UploadAttachments($event)" ref="UploadAttachment" alt="" multiple>
                     </div>
-                    <input type="text" class="form-control mr-3" placeholder="Type your message" @keydwon.enter="SendMessage" @keydown="isTyping()"  v-model="message">
+                    <input type="text" class="form-control mr-3" placeholder="Type your message" @keydwon.enter="SendMessage" @keydown="isTyping()" @click="Seen"  v-model="message">
                     <button type="submit" class="btn btn-primary d-flex align-items-center p-2" @click="SendMessage" ><i class="fa fa-paper-plane-o" aria-hidden="true"></i><span class="d-none d-lg-block ml-1">Send</span></button>
                 </form>
             </div>
@@ -147,11 +157,14 @@
 
 <script>
     import {mapGetters} from "vuex";
-
+    import ChatAttachments from "../NewsFeed/ChatAttachments";
 
     export default {
         props:['Friend','chat'],
         name: "ChatBox",
+        components:{
+            ChatAttachments
+        },
         data(){
             return{
                 message:'',
@@ -164,15 +177,70 @@
                 isOnlyEmot:false,
                 images:[
                     'https://cdn.hipwallpaper.com/i/77/4/gIx0SV.jpg'
-                ]
+                ],
+                image:[],
+                video:[],
             }
         },
         computed:{
             ...mapGetters([
                 'getUserInfo'
-            ])
+            ]),
         },
         methods:{
+            Seen(){
+                var isread = this.ChatMessages[0].read;
+                var isme = this.ChatMessages[0].from;
+                if(isme != this.getUserInfo.id && isread == null)
+                {
+                    this.axios.post('/api/MessageSeen',{message_id:this.ChatMessages[0].id}).then((response) => {
+                        console.log(response)
+                        this.ChatMessages[0].read = response.data.read
+                    }).catch((error)=>{
+                        console.log(error)
+                    });
+                    let channel = Echo.private('ChatMessages.' + this.to);
+                    channel.whisper('seen', {
+                        message_id:this.ChatMessages[0].id,
+                    });
+                }
+
+
+            },
+            deleteImage(i){
+                this.image.splice(i,1);
+            },
+            Deletevid(i){
+                this.video.splice(i,1);
+            },
+            UploadAttachments(event){
+                for (let file of event.target.files) {
+                    try {
+                        let reader = new FileReader();
+                        if(file['type']==='image/jpeg' || file['type']==='image/png'){
+                            if(file['size'] < 2111775){
+                                reader.onloadend = (file) =>{
+                                    this.image.push(reader.result);
+                                }
+                            }else{
+
+                            }
+                        }else if( file['type']==='video/mp4'){
+
+                            reader.onloadend = (file) =>{
+                                this.video.push(reader.result);
+                            }
+                        }else{
+
+                        }
+
+                        reader.readAsDataURL(file);
+                    } catch {
+
+                    }
+
+                }
+            },
             openEmoji(){
                 setTimeout(this.ScrollToEnd,100)
                 this.showEmoji = !this.showEmoji
@@ -187,8 +255,9 @@
                 }
             },
             SendMessage(){
-                if(this.message == ''){
-                    return
+
+                if(this.message == '' && this.image.length == 0 && this.video.length == 0){
+                   return;
                 }else{
                     var type = ""
                     if(this.isOnlyEmot){
@@ -199,8 +268,10 @@
                     this.showEmoji = false
                     this.isSent = true
                     setTimeout(this.ScrollToEnd,100)
-                    this.axios.post('/api/SendMessage',{message:this.message,to:this.Friend.id,type:type}).then((response) => {
+                    this.axios.post('/api/SendMessage',{message:this.message,to:this.Friend.id,type:type,image:this.image,video:this.video}).then((response) => {
                         this.ChatMessages.unshift(response.data)
+                        this.image = [];
+                        this.video = []
                         this.isSent = false
                         this.message= ''
                         this.showEmoji = false
@@ -238,7 +309,10 @@
                     setTimeout(function() {
                         _this.typing = false
                     }, 10000);
-                });
+                }) .listenForWhisper('seen', (e) => {
+                    this.ChatMessages[0].read = "yes";
+                    document.getElementById('scroller').scrollTo(0,999999);
+                });;
             },
             isTyping() {
                 this.isOnlyEmot = false;

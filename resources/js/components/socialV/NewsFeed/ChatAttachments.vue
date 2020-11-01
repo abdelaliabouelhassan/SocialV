@@ -1,0 +1,38 @@
+<template>
+    <div>
+        <div class="user-post"  v-if="images.length  != 0" style="width:219px">
+            <FbImageLibrary  :images="images" class="img-fluid rounded w-100" style="cursor: pointer"></FbImageLibrary>
+        </div>
+        <div class="user-post"  v-else>
+            <video controls  class="img-fluid rounded w-100" >
+                <source :src="videos" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['files'],
+        name: "ChatAttachments",
+        data(){
+            return {
+                images:[],
+                videos:[],
+            }
+        },
+        created() {
+            this.files.forEach(file => {
+                if(file.type == "image"){
+                    this.images.push(file.path)
+                }else{
+                    this.videos.push(file.path)
+                }
+            });
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

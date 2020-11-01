@@ -18,6 +18,9 @@ use Illuminate\Http\Request;
 
 
 
+Route::middleware(['auth:sanctum'])->post('auth/video_chat','VideoChatController@auth');
+
+
 Route::get('/test',function (){
 
     $user1 = User::find(1);

@@ -85,5 +85,8 @@
         <!-- Custom JavaScript -->
         <script src="{{asset("js/custom.js")}}"></script>
         <script src="{{asset('js/app.js')}}"></script>
+<script>
+    const crfToken ='{{csrf_token()}}'
+</script>
     </body>
 </html>

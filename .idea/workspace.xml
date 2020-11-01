@@ -2,22 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Events/MessageEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Chat.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_29_124100_create_chats_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/socialv.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/socialv.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chat.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/right.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/channels.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/channels.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +53,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/resources/js/bootstrap.js" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -277,7 +280,12 @@
       <workItem from="1603887944729" duration="3092000" />
       <workItem from="1603919261375" duration="650000" />
       <workItem from="1603972510606" duration="17628000" />
-      <workItem from="1604039815886" duration="14485000" />
+      <workItem from="1604039815886" duration="15276000" />
+      <workItem from="1604071439986" duration="13510000" />
+      <workItem from="1604097049957" duration="582000" />
+      <workItem from="1604146278424" duration="590000" />
+      <workItem from="1604148374809" duration="11533000" />
+      <workItem from="1604186337427" duration="3502000" />
     </task>
     <servers />
   </component>
@@ -285,14 +293,14 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="701" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602263612779">
+    <state x="701" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604081235655">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="701" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1602263612779" />
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603984805225">
+    <state x="701" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1604081235655" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604073465532">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603984805225" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604073465532" />
     <state x="745" y="335" key="NewPhpClassDialog" timestamp="1603222915741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -305,10 +313,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="534" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1602949074325" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1603561294160">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1604079169147">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603561294160" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604079169147" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603815037871">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
