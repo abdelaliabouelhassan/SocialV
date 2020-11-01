@@ -22,19 +22,6 @@
                 pusherCluster:'eu'
             }
         },
-        computed:{
-            getPermissions() {
-                return new Promise((res, rej) => {
-                    navigator.mediaDevices.getUserMedia({video: true, audio: true})
-                        .then((stream) => {
-                            res(stream);
-                        })
-                        .catch(err => {
-                            throw new Error(`Unable to fetch stream ${err}`);
-                        })
-                });
-            }
-        },
         mounted() {
             this.setupVideoChat();
         },
@@ -50,14 +37,12 @@
                         trickle: false
                     });
                     peer.on('signal', (data) => {
-                        console.log('signal')
                         this.channel.trigger(`client-signal-${userId}`, {
                             userId: this.$store.state.user.id,
                             data: data
                         });
                     })
-                     .on('stream', (stream) => {
-                            console.log('stream')
+                        .on('stream', (stream) => {
                             const videoThere = this.$refs['video-there'];
                             try {
                                 videoThere.srcObject = stream;
@@ -66,7 +51,6 @@
                             }
                         })
                         .on('close', () => {
-                            console.log('close')
                             const peer = this.peers[userId];
                             if(peer !== undefined) {
                                 peer.destroy();
@@ -80,24 +64,14 @@
             async setupVideoChat() {
                 // To show pusher errors
                 // Pusher.logToConsole = true;
-                this.getPermissions.then((stream) => {
-                    const videoHere = this.$refs['video-here'];
-                    this.stream = stream;
-                    try {
-                        videoHere.srcObject = stream;
-                    } catch (e) {
-                        videoHere.src = URL.createObjectURL(stream);
-                    }
-
-                });
-                // const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                // const videoHere = this.$refs['video-here'];
-                // try {
-                //     videoHere.srcObject = stream;
-                // } catch (e) {
-                //     videoHere.src = URL.createObjectURL(stream);
-                // }
-                // this.stream = stream;
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                const videoHere = this.$refs['video-here'];
+                try {
+                    videoHere.srcObject = stream;
+                } catch (e) {
+                    videoHere.src = URL.createObjectURL(stream);
+                }
+                this.stream = stream;
                 const pusher = this.getPusherInstance();
                 this.channel = pusher.subscribe('presence-video-chat');
                 this.channel.bind(`client-signal-${this.$store.state.user.id}`, (signal) =>
