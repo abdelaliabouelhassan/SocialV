@@ -1,44 +1,68 @@
 <template>
     <div>
-        <div class="container">
-        <div v-if="icall==true && showCallVideo==false && isHeCancel == false && IsCallEnd==true">
-            <div v-if="!callInProgress">
-                <h1>Do You Want To Call  {{user.name}} ?</h1>
-                <button @click="NoCancel">No Cancel</button>
-                <button @click="Call">Yes Call</button>
-            </div>
-            <div v-if="callInProgress">
-                <h1>You Are Calling...</h1>
-                <button @click="CancelCall">Cancel Call</button>
-            </div>
+        <div class="header-for-bg">
+            <div class="background-header position-relative">
+                <img src="images/page-img/profile-bg9.jpg" class="img-fluid w-100 rounded rounded" alt="profile-bg">
+                <div class="title-on-header">
+                    <div class="data-block">
+                    <!--                        -->
+                        <div v-if="icall==true && showCallVideo==false && isHeCancel == false && IsCallEnd==true">
+                            <div v-if="!callInProgress">
+                                <h1>Do You Want To Call  {{user.name}} ?</h1>
+                                <button @click="NoCancel" class="btn btn-outline-secondary rounded-pill mb-3">No Cancel</button>
+                                <button @click="Call" class="btn btn-outline-success rounded-pill mb-3">Yes Call</button>
+                            </div>
+                            <div v-if="callInProgress">
+                                <h1>You Are Calling...</h1>
+                                <button @click="CancelCall" class="btn btn-outline-danger rounded-pill mb-3">Cancel Call</button>
+                            </div>
 
-        </div>
-        <div v-if="isHeCancel">
-            <h1>{{user.name}} Rejected Your Call.   </h1>
-            <button @click="NoCancel">Ok. Go Back</button>
-            <button @click="Call">Call Again</button>
-        </div>
-            <div v-if="!IsCallEnd">
-                <h1>The Call Is Ended How It Was ?   </h1>
-                <button @click="NoCancel">Ok. Go Back</button>
-                <button @click="Call">Call Again</button>
+                        </div>
+
+                    <!--                -->
+                        <div v-if="isHeCancel">
+                            <h1>{{user.name}} Rejected Your Call.   </h1>
+                            <button @click="NoCancel" class="btn btn-outline-info rounded-pill mb-3">Ok. Go Back</button>
+                            <button @click="Call" class="btn btn-outline-success rounded-pill mb-3">Call Again</button>
+                        </div>
+                        <div v-if="!IsCallEnd">
+                            <h1>The Call Is Ended How It Was ?   </h1>
+                            <button @click="NoCancel" class="btn btn-outline-info rounded-pill mb-3">Ok. Go Back</button>
+                        </div>
+                        <div v-if="igotCall==true && showCallVideo==false && IsCallEnd==true">
+                            <div v-if="callInProgress">
+                                <h1>You Got Call From {{whoIsCalling.name}}</h1>
+                                <button @click="NoCancelCall" class="btn btn-outline-danger rounded-pill mb-3">Cancel Call</button>
+                                <button @click="Accept" class="btn btn-outline-success rounded-pill mb-3">Accept Call</button>
+                            </div>
+                        </div>
+                    <!--                        -->
+                        <div  v-show="showCallVideo">
+                            <h1 class="text-center">You Are Talking With  {{igotCall == true ? whoIsCalling.name : user.name }}</h1>
+                            <div class="video-container" ref="video-container">
+                                <video class="video-here" ref="video-here" autoplay></video>
+                                <video class="video-there" ref="video-there" autoplay></video>
+                            </div>
+                            <button @click="EndCall" class="btn btn-outline-danger rounded-pill mb-3">End Call</button>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-        <div v-if="igotCall==true && showCallVideo==false && IsCallEnd==true">
-            <div v-if="callInProgress">
-                <h1>You Got Call From {{whoIsCalling.name}}</h1>
-                <button @click="NoCancelCall">Cancel Call</button>
-                <button @click="Accept">Accept Call</button>
-            </div>
         </div>
+        <div>
+            <audio
+                ref="audio"
+                src="/audio/video_tronics.mp3"
+                preload
+                loop
+                id="audio"
+                muted="muted"
+            ></audio>
         </div>
-        <div class="container" v-show="showCallVideo">
-            <h1 class="text-center">You Are Talking With  {{igotCall == true ? whoIsCalling.name : user.name }}</h1>
-            <div class="video-container" ref="video-container">
-                <video class="video-here" ref="video-here" autoplay></video>
-                <video class="video-there" ref="video-there" autoplay></video>
-            </div>
-            <button @click="EndCall">End Call</button>
-        </div>
+
+
 
     </div>
 </template>
@@ -61,19 +85,21 @@
                 IsCallEnd:true,
                 callInProgress:false,
                 peers: {},
+                peer:null,
                 pusherKey:'1059af4a7bb544febd4f',
                 pusherCluster:'eu'
             }
         },
         methods:{
-             stopBothVideoAndAudio(stream) {
+            stopBothVideoAndAudio(stream) {
                 stream.getTracks().forEach(function(track) {
                     if (track.readyState == 'live') {
                         track.stop();
                     }
-        });
-    },
+                  });
+           },
             EndCall(){
+                this.peer.destroy();
                 var id ;
                 if(this.igotCall == true){
                     id =  this.whoIsCalling.id
@@ -98,6 +124,7 @@
                 this.callInProgress = false
                 this.$store.state.showCall = false
                 this.IsCallEnd = true
+                this.$refs.audio.pause()
                 setTimeout( function(){
                     channel.whisper('NoCancelCall', {
                         CancelCall:true
@@ -110,6 +137,7 @@
                 this.$store.state.showCall = false
                 this.isHeCancel = false
                 this.IsCallEnd = true
+                this.$refs.audio.pause()
                 setTimeout( function(){
                     channel.whisper('CancelCall', {
                         CancelCall:true
@@ -120,18 +148,19 @@
                 this.isHeCancel = false
                 this.$store.state.showCall = false
                 this.IsCallEnd = true
+                this.$refs.audio.pause()
             },
             startVideoChat(userId) {
                 this.getPeer(userId, true);
             },
             getPeer(userId, initiator) {
                 if(this.peers[userId] === undefined) {
-                    let peer = new Peer({
+                     this.peer = new Peer({
                         initiator,
                         stream: this.stream,
                         trickle: false
                     });
-                    peer.on('signal', (data) => {
+                    this.peer.on('signal', (data) => {
                         console.log('signal')
                         this.channel.trigger(`client-signal-${userId}`, {
                             userId: this.$store.state.user.id,
@@ -155,7 +184,7 @@
                             }
                             delete this.peers[userId];
                         });
-                    this.peers[userId] = peer;
+                    this.peers[userId] = this.peer;
                 }
                 return this.peers[userId];
             },
@@ -184,6 +213,7 @@
                 let channel = Echo.private('VedioCallRuning.' + this.whoIsCalling.id);
                 let vm = this
                 this.IsCallEnd = true
+                this.$refs.audio.pause()
                 setTimeout( function(){
                     channel.whisper('Accept', {
                         acepted: true,
@@ -193,7 +223,7 @@
                 this.ConnectToVideoCall();
                 setTimeout( function(){
                     vm.startVideoChat(vm.whoIsCalling.id);
-                },9000);
+                },5000);
             },
             Call(){
                 this.icall = true
@@ -201,6 +231,7 @@
                 this.callInProgress = true
                 this.isHeCancel = false
                 this.IsCallEnd = true
+                this.playCallSong();
                 let vm = this
                 let channel = Echo.private('VedioCallRuning.' + this.user.id);
                 setTimeout( function(){
@@ -208,6 +239,15 @@
                         fromWho: vm.$store.state.user,
                     });
                 },1000);
+            },
+
+            async  playCallSong() {
+                try {
+                    await   this.$refs.audio.play()
+
+                } catch(err) {
+                    console.log(err)
+                }
             },
             listen(){
                 let _this = this;
@@ -219,23 +259,30 @@
                         this.$store.state.showCall = true
                         this.callInProgress = true
                         this.whoIsCalling = e.fromWho
+                        this.playCallSong();
+
                     })
                .listenForWhisper('Accept', (e) => {
                             this.ConnectToVideoCall();
                             this.showCallVideo=true
+                            this.$refs.audio.pause()
 
                 }).listenForWhisper('CancelCall', (e) => {
                     this.igotCall = false
                     this.$store.state.showCall = false
+                    this.$refs.audio.pause()
 
                 }).listenForWhisper('NoCancelCall', (e) => {
                     this.isHeCancel = true
                     this.callInProgress = false
+                    this.$refs.audio.pause()
                 }).listenForWhisper('EndCall', (e) => {
+                    this.peer.destroy();
                     this.callInProgress = false
                     this.IsCallEnd = false
                     this.showCallVideo=false
                     this.stopBothVideoAndAudio(this.stream)
+                    this.$refs.audio.pause()
                 });
             },
             async setupVideoChat() {
@@ -268,7 +315,7 @@
         width: 500px;
         height: 380px;
         margin: 8px auto;
-        border: 3px solid #000;
+        border: 5px solid #03d3fc;
         position: relative;
         box-shadow: 1px 1px 1px #9e9e9e;
     }

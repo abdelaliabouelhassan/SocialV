@@ -194,7 +194,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/audio" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -208,11 +208,12 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\socialv\public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\socialv\resources\js\components\socialV\NewsFeed" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\socialv\public\audio" />
+      <recent name="C:\wamp64\www\socialv\public" />
     </key>
   </component>
   <component name="RunManager">
@@ -275,7 +276,11 @@
       <workItem from="1604148374809" duration="11533000" />
       <workItem from="1604186337427" duration="3502000" />
       <workItem from="1604234537720" duration="5710000" />
-      <workItem from="1604245639610" duration="16532000" />
+      <workItem from="1604245639610" duration="17942000" />
+      <workItem from="1604321590769" duration="1149000" />
+      <workItem from="1604332598696" duration="5958000" />
+      <workItem from="1604340077187" duration="19000" />
+      <workItem from="1604409235632" duration="6036000" />
     </task>
     <servers />
   </component>
