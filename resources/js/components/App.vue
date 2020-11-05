@@ -25,6 +25,7 @@
 <script>
     import FriendSearch from "./socialV/search/FriendSearch";
     import VideoCall from "./socialV/Chat/VideoCall";
+
     export default {
         components:{
             FriendSearch,

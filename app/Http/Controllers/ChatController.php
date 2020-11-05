@@ -69,7 +69,7 @@ class ChatController extends Controller
             'attachment'=>$chat->attachment,
             'attachments'=>$chat->attachments,
             'read'=>$chat->read,
-            'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$chat->created_at)->diffForHumans(),
+            'created_at'=>$chat->created_at,
         ];
         broadcast(new MessageEvent($message));
         return response()->json($message,200);

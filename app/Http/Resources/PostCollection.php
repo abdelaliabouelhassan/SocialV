@@ -29,7 +29,7 @@ class PostCollection extends JsonResource
             'isLiked'=>count(Like::where('user_id',auth('sanctum')->id())->where('post_id',$this->id)->get()) == 0 ? false:true,
             'commentCount'=>count(CommentCollection::collection($this->comments)),
             'loadmoreNumber'=>5,
-            'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$this->created_at)->diffForHumans(),
+            'created_at'=>$this->created_at,
         ];
     }
 }

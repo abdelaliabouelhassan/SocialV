@@ -65,27 +65,31 @@
                     <a href="javascript:void(0);" class="chat-icon-delete iq-bg-primary">
                         <i class="ri-delete-bin-line"></i>
                     </a>
-                    <span class="dropdown iq-bg-primary">
-                                                   <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
-                                                   <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton02">
-                                                   <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                                                   <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
-                                                   <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
-                                                   </span>
-                                                   </span>
+                    <span class="dropdown iq-bg-primary"  @click="showChatOptions = !showChatOptions">
+                       <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
+                       <span class="dropdown-menu dropdown-menu-right" :class="{'show':showChatOptions}" aria-labelledby="dropdownMenuButton02">
+                       <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
+                       <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
+                       <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
+                       </span>
+                    </span>
                 </div>
             </header>
 
             <div class="chat-content scroller" id="scroller" style="background:url('../images/page-img/100.jpg')">
                 <div class="chat" v-for="(chat,index) in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}">
                     <div class="chat-user">
-                        <a class="avatar m-0">
+                        <a class="avatar m-0" v-if="chat.type == 'emoji' || chat.type == 'message'">
                             <img :src="Friend.profile_photo_url" v-if="Friend.id == chat.from" alt="avatar" class="avatar-35 ">
-<!--                            <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">-->
+                            <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">
                         </a>
-
+                        <span class="chat-time mt-1" v-if="chat.type == 'emoji' || chat.type == 'message'"><TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo>
+                                  <span v-if="index == ChatMessages.length -1" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
+                                   <span v-if="index == ChatMessages.length - 2" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
+                        </span>
+                        </span>
                     </div>
-                    <div class="chat-detail">
+                    <div class="chat-detail" v-if="chat.type == 'emoji' || chat.type == 'message'">
                         <div class="chat-message">
                             <p v-if="chat.type == 'message'" style="font-size: 19px">{{chat.message}}</p>
                             <p style="font-size: 70px" v-if="chat.type == 'emoji'">{{chat.message}}</p>
@@ -93,13 +97,19 @@
                         </div>
                     </div>
                     <div>
-                        <span class="chat-time mt-1">-----{{chat.created_at}}-----
-                     <span v-if="index == ChatMessages.length -1" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
-                        </span>
-                        <span v-if="index == ChatMessages.length - 2" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
-                        </span>
+                             <span class="chat-time mt-1" style="color:red" v-if="chat.type == 'callMissed' && chat.to == getUserInfo.id">
+                              <b> You Missed Call at <TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo></b>
 
+                             </span>
+                            <span class="chat-time mt-1" style="color:red" v-if="chat.type == 'callMissed' && chat.from == getUserInfo.id">
+                              <b> You Called With No Responde at <TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo></b>
+                             </span>
+                             <span class="chat-time mt-1" style="color:blue" v-if="chat.type == 'callEnd'">
+                                Call End
+                             </span>
                     </div>
+
+
 
                 </div>
                 <div class="chat" v-show="isSent">
@@ -158,14 +168,17 @@
 <script>
     import {mapGetters} from "vuex";
     import ChatAttachments from "../NewsFeed/ChatAttachments";
+    import TimeAgo from 'vue2-timeago'
     export default {
         props:['Friend','chat'],
         name: "ChatBox",
         components:{
             ChatAttachments,
+            TimeAgo
         },
         data(){
             return{
+                showChatOptions:false,
                 message:'',
                 ChatMessages:[],
                 typing: false,

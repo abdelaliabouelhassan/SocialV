@@ -117,6 +117,15 @@
                     });
                 },1000);
 
+                //end call
+                var message = "Call Ended"
+                var to = id
+                var type= "callEnd"
+                this.axios.post('/api/SendMessage',{message:message,to:to,type:type}).then((response) => {
+                }).catch((error)=>{
+                    console.log(error)
+                });
+
 
             },
             NoCancelCall(){
@@ -130,6 +139,13 @@
                         CancelCall:true
                     });
                 },1000);
+                var message = "You Missed Call"
+                var to = this.user.id
+                var type= "callMissed"
+                this.axios.post('/api/SendMessage',{message:message,to:to,type:type}).then((response) => {
+                }).catch((error)=>{
+                    console.log(error)
+                });
             },
             CancelCall(){
                 let channel = Echo.private('VedioCallRuning.' + this.user.id);
@@ -143,6 +159,15 @@
                         CancelCall:true
                     });
                 },1000);
+
+               //send call missed
+               var message = "You Missed Call"
+               var to = this.user.id
+               var type= "callMissed"
+                this.axios.post('/api/SendMessage',{message:message,to:to,type:type}).then((response) => {
+                }).catch((error)=>{
+                    console.log(error)
+                });
             },
             NoCancel(){
                 this.isHeCancel = false

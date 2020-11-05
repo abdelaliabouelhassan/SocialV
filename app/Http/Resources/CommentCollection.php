@@ -20,7 +20,7 @@ class CommentCollection extends JsonResource
             'user'=>$this->user,
             'body'=>$this->body,
             'replay'=>CommentReplayCollection::collection($this->replay),
-            'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$this->created_at)->diffForHumans(),
+            'created_at'=>$this->created_at,
         ];
     }
 }

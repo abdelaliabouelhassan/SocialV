@@ -11,7 +11,7 @@
                         <div class="media-support-info mt-2">
                             <h5 class="mb-0 d-inline-block"><a href="#" class="">{{post.user.name}}</a></h5>
                             <p class="mb-0 d-inline-block">Add New Post</p>
-                            <p class="mb-0 text-primary">{{post.created_at}}</p>
+                            <p class="mb-0 text-primary"> <TimeAgo :refresh="60" :datetime="post.created_at" locale="en" tooltip></TimeAgo></p>
                         </div>
                         <div class="iq-card-post-toolbar">
                             <div class="dropdown">
@@ -128,7 +128,7 @@
                                         <a href="javascript:void(0);" @click="showCommentForm(comment,post)" v-if="showCommentForms != comment">reply</a>
                                         <a href="javascript:void(0);" @click="HideCommentForm(comment,post)" v-if="showCommentForms == comment">un-reply</a>
                                         <a href="javascript:void(0);" @click="translate(comment,'comment')">translate</a>
-                                        <span> {{comment.created_at}} </span>
+                                        <span> <TimeAgo :refresh="60" :datetime="comment.created_at" locale="en" tooltip></TimeAgo> </span>
                                     </div>
 
                                     <!--      Replay           -->
@@ -146,7 +146,7 @@
                                                         <div class="d-flex flex-wrap align-items-center comment-activity">
                                                             <a href="javascript:void(0);">like</a>
                                                             <a href="javascript:void(0);" @click="translate(replay,'replay')" >translate</a>
-                                                            <span> {{replay.created_at}} </span>
+                                                            <span>  <TimeAgo :refresh="60" :datetime="replay.created_at" locale="en" tooltip></TimeAgo> </span>
                                                         </div>
                                                     </div>
 
@@ -188,12 +188,14 @@
     import PostAttachments from "./PostAttachments";
     import CommentInput from "./CommentInput";
     import CommentReplayInput from "./CommentReplayInput";
+    import TimeAgo from 'vue2-timeago'
     export default {
        props:['posts','lastPage','load'],
         components:{
             PostAttachments,
             CommentInput,
             CommentReplayInput,
+            TimeAgo
         },
         data(){
            return{

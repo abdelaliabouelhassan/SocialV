@@ -3,6 +3,22 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import '../../public/js/jquery.min.js'
+import '../../public/js/popper.min.js'
+import '../../public/js/bootstrap.min.js'
+import '../../public/js/jquery.appear.js'
+import '../../public/js/countdown.min.js'
+import '../../public/js/jquery.counterup.min.js'
+import '../../public/js/wow.min.js'
+import '../../public/js/apexcharts.js'
+import '../../public/js/lottie.js'
+import '../../public/js/slick.min.js'
+import '../../public/js/select2.min.js'
+import '../../public/js/owl.carousel.min.js'
+import '../../public/js/jquery.magnific-popup.min.js'
+import '../../public/js/smooth-scrollbar.js'
+import '../../public/js/chart-custom.js'
+import '../../public/js/custom.js'
 
 require('./bootstrap');
 
@@ -27,8 +43,9 @@ Vue.component('socialV-right', require('./components/includes/right.vue').defaul
 Vue.component('socialV-footer', require('./components/includes/footer').default);
 Vue.component('socialV-post', require('./components/socialV/NewsFeed/Posts').default);
 Vue.component('socialv', require('./components/App.vue').default);
+/*TimeagoVue*/
 
-
+/*End TimeagoVue*/
 
 /*Autocomplete*/
 import Autocomplete from '@trevoreyre/autocomplete-vue'

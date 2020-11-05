@@ -19,7 +19,7 @@ class LikeCollection extends JsonResource
             'id'=>$this->id,
             'type'=>$this->type,
             'user'=>$this->user,
-            'created_at'=>Carbon::createFromFormat('Y-m-d H:i:s',$this->created_at)->diffForHumans(),
+            'created_at'=>$this->created_at,
         ];
     }
 }
