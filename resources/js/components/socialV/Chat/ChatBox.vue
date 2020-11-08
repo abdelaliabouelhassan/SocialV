@@ -62,14 +62,14 @@
                     <a href="javascript:void(0);" @click="Call(Friend)" class="chat-icon-video iq-bg-primary">
                         <i class="ri-vidicon-line"></i>
                     </a>
-                    <a href="javascript:void(0);" class="chat-icon-delete iq-bg-primary">
-                        <i class="ri-delete-bin-line"></i>
+                    <a href="javascript:void(0);" class="chat-icon-delete iq-bg-primary" @click="closeChat">
+                        <i class="fa fa-times"></i>
                     </a>
                     <span class="dropdown iq-bg-primary"  @click="showChatOptions = !showChatOptions">
-                       <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></i>
+                       <i class="ri-more-2-line cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu" @click="showChatOptions = !showChatOptions"></i>
                        <span class="dropdown-menu dropdown-menu-right" :class="{'show':showChatOptions}" aria-labelledby="dropdownMenuButton02">
                        <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pin to top</a>
-                       <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete chat</a>
+                       <a class="dropdown-item" href="JavaScript:void(0);" @click="DeleteChat(Friend)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete Conversation</a>
                        <a class="dropdown-item" href="JavaScript:void(0);"><i class="fa fa-ban" aria-hidden="true"></i> Block</a>
                        </span>
                     </span>
@@ -200,11 +200,50 @@
             ]),
         },
         methods:{
+            DeleteChat(user){
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "Once you delete your copy of this conversation, it cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.axios.post('/api/DeleteChat',{user_id:user.id}).then((response) => {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your Conversation has been deleted.',
+                                'success'
+                            )
+                            this.ChatMessages = [];
+                        }).catch((error)=>{
+                            console.log(error)
+                        });
+
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Your conversation is safe :)',
+                            'error'
+                        )
+                    }
+                })
+            },
+            closeChat(){
+                something.$emit('CloseChat');
+            },
             Call(user){
                 this.$store.state.showCall = true;
                 something.$emit('Call',user);
             },
             Seen(){
+                var len =   this.ChatMessages.length
+                if(len != 0){
                 var isread = this.ChatMessages[0].read;
                 var isme = this.ChatMessages[0].from;
                 if(isme != this.getUserInfo.id && isread == null)
@@ -220,6 +259,7 @@
                         message_id:this.ChatMessages[0].id,
                     });
                 }
+          }
 
 
             },

@@ -55,9 +55,9 @@
             ConfirmRequest(request,index){
                 this.$Progress.start();
                 this.axios.post('/api/ConfirmRequest',{user_id:request.id}).then((response) => {
-                    console.log(response)
                     this.FriendRequests.splice(index,1);
                     this.$Progress.finish();
+                    something.$emit('ReloadFriends');
                 }).catch((error)=>{
                     this.$Progress.fail()
                     console.log(error)
@@ -66,7 +66,6 @@
             DeleteRequest(request,index){
                 this.$Progress.start();
                 this.axios.post('/api/DeleteRequest',{user_id:request.id}).then((response) => {
-                    console.log(response)
                     this.FriendRequests.splice(index,1);
                     this.$Progress.finish();
                 }).catch((error)=>{
@@ -107,6 +106,7 @@
                                 icon: 'info',
                                 title: e.user.name +' Accept Your Request '
                             })
+                            something.$emit('ReloadFriends');
                         }
                         if(e.type == 'denied'){
                             Toast.fire({

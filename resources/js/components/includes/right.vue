@@ -98,6 +98,12 @@ import ChatBox from "../socialV/Chat/ChatBox";
             something.$on('Call',(Friend)=>{
                 this.showChatBox = false;
             });
+            something.$on('CloseChat',()=>{
+                this.showChatBox = false;
+            });
+            something.$on('ReloadFriends',()=>{
+                this.getFriends()
+            });
         },
         mounted() {
               this.listen();

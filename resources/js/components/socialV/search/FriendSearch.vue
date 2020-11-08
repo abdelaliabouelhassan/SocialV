@@ -94,6 +94,7 @@
                     Friendrequest.Tohim = false
                     Friendrequest.Tome = false
                     something.$emit('loadRequest');
+                    something.$emit('ReloadFriends');
                 }).catch((error)=>{
                     this.$Progress.fail()
                     console.log(error)

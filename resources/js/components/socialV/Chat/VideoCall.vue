@@ -40,8 +40,8 @@
                         <div  v-show="showCallVideo">
                             <h1 class="text-center">You Are Talking With  {{igotCall == true ? whoIsCalling.name : user.name }}</h1>
                             <div class="video-container" ref="video-container">
-                                <video class="video-here" ref="video-here" autoplay></video>
-                                <video class="video-there" ref="video-there" autoplay></video>
+                                <video class="video-here" muted ref="video-here" autoplay></video>
+                                <video class="video-there" controls ref="video-there" autoplay></video>
                             </div>
                             <button @click="EndCall" class="btn btn-outline-danger rounded-pill mb-3">End Call</button>
                         </div>
@@ -58,7 +58,6 @@
                 preload
                 loop
                 id="audio"
-                muted="muted"
             ></audio>
         </div>
 
