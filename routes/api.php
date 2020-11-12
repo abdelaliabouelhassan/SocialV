@@ -40,3 +40,5 @@ Route::middleware('auth:sanctum')->post('/SendMessage','ChatController@SendMessa
 Route::middleware('auth:sanctum')->post('/GetMessage','ChatController@getMessage');
 Route::middleware('auth:sanctum')->post('/MessageSeen','ChatController@MessageSeen');
 Route::middleware('auth:sanctum')->post('/DeleteChat','ChatController@DeleteChat');
+Route::middleware('auth:sanctum')->post('/removeMsg','ChatController@removeMsg');
+Route::middleware('auth:sanctum')->post('/DeleteForEveryone','ChatController@DeleteForEveryone');

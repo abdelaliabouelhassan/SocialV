@@ -149,7 +149,35 @@ class ChatController extends Controller
 
             }
 
+    }
 
 
+
+
+    public function removeMsg(Request $request){
+        $msg =    Chat::withTrashed()->findOrFail($request->msg_id);
+
+        if($msg->who == null){
+            $msg->type = "removed";
+            $msg->who = auth()->id();
+            $msg->save();
+        }else{
+            $msg->type = "bothremoved";
+            $msg->who = 0;
+            $msg->save();
+        }
+
+
+
+
+        return response()->json('msgRemoved',200);
+
+    }
+    public function DeleteForEveryone(Request $request){
+           $msg =    Chat::withTrashed()->findOrFail($request->msg_id);
+            $msg->type = "DeleteForEveryone";
+            $msg->who = null;
+            $msg->save();
+        return response()->json('msgRemoved',200);
     }
 }

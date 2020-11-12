@@ -145,7 +145,11 @@ import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)
 /*VTooltip*/
 
+/*linkify for url display*/
+import linkify from 'vue-linkify'
 
+Vue.directive('linkified', linkify)
+/*end linkify*/
 
 
 

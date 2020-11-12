@@ -24,6 +24,7 @@ class GetMessage extends JsonResource
           'attachment'=>$this->attachment,
           'attachments'=>$this->attachments,
           'read'=>$this->read,
+           'who'=>$this->who,
           'created_at'=>$this->created_at,
 
 

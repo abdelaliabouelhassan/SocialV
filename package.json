@@ -45,6 +45,7 @@
         "v-tooltip": "^2.0.3",
         "vue-axios": "^2.1.5",
         "vue-infinite-loading": "^2.4.5",
+        "vue-linkify": "^1.0.1",
         "vue-mention": "^0.1.7",
         "vue-photo-grid": "^1.0.2",
         "vue-progressbar": "^0.7.5",

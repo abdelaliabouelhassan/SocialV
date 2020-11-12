@@ -6,21 +6,21 @@
                     <div class="sidebar-toggle">
                         <i class="ri-menu-3-line"></i>
                     </div>
-                    <div class="avatar chat-user-profile m-0 mr-3" >
+                    <div class="avatar chat-user-profile m-0 mr-3" @click="showChatUserInfo = !showChatUserInfo" style="cursor:pointer" >
                         <img :src="Friend.profile_photo_url" alt="avatar" class="avatar-50 " style="margin-left: 8px">
                         <span class="avatar-status"><i class="ri-checkbox-blank-circle-fill" :class="{'text-success':Friend.status == 'online'}"></i></span>
                     </div>
                     <h5 class="mb-0">{{Friend.name}}</h5>
                 </div>
-                <div class="chat-user-detail-popup scroller">
+                <div class="chat-user-detail-popup" :class="{'show':showChatUserInfo}">
                     <div class="user-profile text-center">
                         <button type="submit" class="close-popup p-3"><i class="ri-close-fill"></i></button>
                         <div class="user mb-4">
                             <a class="avatar m-0">
-                                <img src="images/user/05.jpg" alt="avatar">
+                                <img :src="Friend.profile_photo_url" alt="avatar">
                             </a>
                             <div class="user-name mt-4">
-                                <h4>Bni Jordan</h4>
+                                <h4>{{Friend.name}}</h4>
                             </div>
                             <div class="user-desc">
                                 <p>Cape Town, RSA</p>
@@ -77,22 +77,37 @@
             </header>
 
             <div class="chat-content scroller" id="scroller" style="background:url('../images/page-img/100.jpg')">
-                <div class="chat" v-for="(chat,index) in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}">
-                    <div class="chat-user">
-                        <a class="avatar m-0" v-if="chat.type == 'emoji' || chat.type == 'message'">
+                <div class="chat" v-for="(chat,index) in ChatMessages.slice().reverse()" :class="{'chat-left': Friend.id == chat.from}" @mouseover="messageHover(index)"  @mouseleave="isHover = false;showMsgOptions=false">
+                    <div class="chat-user" >
+                     <span v-if="isHover && hovermsg==index">
+                       <a class="dropdown-item" href="JavaScript:void(0);" @click="DeleteMsg(chat)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove </a>
+                       <a class="dropdown-item" href="JavaScript:void(0);" @click="DeleteForEveryone(chat)" v-if="chat.from == getUserInfo.id && chat.type !=  'DeleteForEveryone'"><i class="fa fa-eraser" aria-hidden="true"></i> Delete for everyone </a>
+                       <a class="dropdown-item" href="JavaScript:void(0);" @click="ReplayMsg(chat)" v-if="chat.type !=  'DeleteForEveryone'"> <i class="fa fa-reply" aria-hidden="true" ></i> Replay</a>
+
+                    </span>
+                  <span v-else>
+                        <a  class="avatar m-0" v-if="chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id ">
                             <img :src="Friend.profile_photo_url" v-if="Friend.id == chat.from" alt="avatar" class="avatar-35 ">
                             <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">
                         </a>
-                        <span class="chat-time mt-1" v-if="chat.type == 'emoji' || chat.type == 'message'"><TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo>
+                                  <span class="chat-time mt-1" v-if="chat.type == 'emoji' || chat.type == 'message'"><TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo>
                                   <span v-if="index == ChatMessages.length -1" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
                                    <span v-if="index == ChatMessages.length - 2" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
                         </span>
+                  </span>
                         </span>
                     </div>
-                    <div class="chat-detail" v-if="chat.type == 'emoji' || chat.type == 'message'">
+                    <div class="chat-detail" v-if=" chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id " v-linkified  >
                         <div class="chat-message">
-                            <p v-if="chat.type == 'message'" style="font-size: 19px">{{chat.message}}</p>
-                            <p style="font-size: 70px" v-if="chat.type == 'emoji'">{{chat.message}}</p>
+                            <p v-if="chat.type == 'message'" style="font-size: 19px" v-text="chat.message"  ></p>
+                            <p style="font-size: 70px" v-if="chat.type == 'emoji'" v-text="chat.message"   ></p>
+                            <p style="font-size: 19px" v-if="chat.type == 'removed' && chat.who != getUserInfo.id" v-text="chat.message"></p>
+                            <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
+                        </div>
+                    </div>
+                    <div class="chat-detail" v-if=" chat.type ==  'DeleteForEveryone' "  >
+                        <div class="chat-message" style="background-color:#146c80">
+                            <p style="font-size: 19px;"  v-text="'Message Deleted'"></p>
                             <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
                         </div>
                     </div>
@@ -178,6 +193,10 @@
         },
         data(){
             return{
+                showMsgOptions:false,
+                hovermsg:null,
+                isHover:false,
+                showChatUserInfo:false,
                 showChatOptions:false,
                 message:'',
                 ChatMessages:[],
@@ -200,6 +219,88 @@
             ]),
         },
         methods:{
+            DeleteForEveryone(msg){
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "Once you Delete  this Message, it cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.axios.post('/api/DeleteForEveryone',{msg_id:msg.id}).then((response) => {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your Message has been Deleted.',
+                                'success'
+                            )
+                            msg.type = "bothremoved";
+                            msg.who = 0;
+                        }).catch((error)=>{
+                            console.log(error)
+                        });
+
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Your Message is safe :)',
+                            'error'
+                        )
+                    }
+                })
+            },
+            ReplayMsg(msg){
+                    console.log(msg)
+            },
+            DeleteMsg(msg){
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "Once you Remove your copy of this Message, it cannot be undone.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.axios.post('/api/removeMsg',{msg_id:msg.id}).then((response) => {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your Message has been Removed.',
+                                'success'
+                            )
+                            if(msg.who == null){
+                                msg.type = "removed";
+                                msg.who = this.getUserInfo.id;
+                            }else{
+                                msg.type = "bothremoved";
+                                msg.who = 0;
+                            }
+                        }).catch((error)=>{
+                            console.log(error)
+                        });
+
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Your Message is safe :)',
+                            'error'
+                        )
+                    }
+                })
+            },
+            messageHover(index){
+                  this.hovermsg = index
+                this.isHover = true;
+            },
             DeleteChat(user){
                 swalWithBootstrapButtons.fire({
                     title: 'Are you sure?',
@@ -398,6 +499,9 @@
 </script>
 
 <style scoped>
+    .testmsg {
+        background-color:red
+    }
     .chat-box{
         z-index: 1;
         position: fixed;

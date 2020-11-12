@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="comment-data-block ml-3">
                                     <h6>{{comment.user.name}}</h6>
-                                    <p class="mb-0">{{comment.body}}</p>
+                                    <p class="mb-0" v-html="comment.body" v-linkified></p>
                                     <div class="d-flex flex-wrap align-items-center comment-activity">
                                         <a href="javascript:void(0);" @click="showCommentForm(comment,post)" v-if="showCommentForms != comment">reply</a>
                                         <a href="javascript:void(0);" @click="HideCommentForm(comment,post)" v-if="showCommentForms == comment">un-reply</a>
@@ -142,7 +142,7 @@
 
                                                     <div class="comment-data-block ml-3">
                                                         <h6>{{replay.user.name}}</h6>
-                                                        <p class="mb-0">{{replay.replay}}</p>
+                                                        <p class="mb-0" v-linkified>{{replay.replay}}</p>
                                                         <div class="d-flex flex-wrap align-items-center comment-activity">
                                                             <a href="javascript:void(0);">like</a>
                                                             <a href="javascript:void(0);" @click="translate(replay,'replay')" >translate</a>

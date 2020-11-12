@@ -3,7 +3,7 @@
             <div class="user-post"  v-if="images.length  != 0">
                 <FbImageLibrary  :images="images" style="cursor: pointer"></FbImageLibrary>
             </div>
-            <div class="user-post"  v-else>
+            <div class="user-post" v-if="videos.length  != 0">
                 <video controls  class="img-fluid rounded w-100" >
                     <source :src="videos" type="video/mp4">
                 </video>

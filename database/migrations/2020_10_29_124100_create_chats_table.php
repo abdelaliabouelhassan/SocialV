@@ -22,6 +22,7 @@ class CreateChatsTable extends Migration
             $table->integer('ChatSetting_id')->unsigned()->index();
             $table->string('attachment')->nullable();
             $table->dateTime('read')->nullable();
+            $table->integer('who')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
