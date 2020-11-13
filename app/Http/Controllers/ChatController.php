@@ -36,6 +36,7 @@ class ChatController extends Controller
             'to'=>$request->to,
             'type'=>$request->type,
             'message'=>$request->message,
+            'replay'=>$request->replayMsg,
             'attachment'=>$attachmet,
             'ChatSetting_id'=>$CheckChat->id,
             'read'=>null
@@ -77,6 +78,7 @@ class ChatController extends Controller
             'to'=>$chat->to,
             'from'=>$chat->from,
             'message'=>$chat->message,
+            'replay'=>$chat->replay,
             'type'=>$chat->type,
             'attachment'=>$chat->attachment,
             'attachments'=>$chat->attachments,
@@ -180,4 +182,5 @@ class ChatController extends Controller
             $msg->save();
         return response()->json('msgRemoved',200);
     }
+
 }

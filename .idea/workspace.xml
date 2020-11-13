@@ -4,16 +4,12 @@
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_29_124100_create_chats_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_29_124100_create_chats_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/right.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/PostAttachments.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/PostAttachments.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,7 +301,8 @@
       <workItem from="1605123483496" duration="8799000" />
       <workItem from="1605178940085" duration="1157000" />
       <workItem from="1605187054141" duration="207000" />
-      <workItem from="1605192795073" duration="3072000" />
+      <workItem from="1605192795073" duration="7717000" />
+      <workItem from="1605274500147" duration="1266000" />
     </task>
     <servers />
   </component>

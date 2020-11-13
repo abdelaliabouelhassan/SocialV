@@ -19,6 +19,7 @@ class CreateChatsTable extends Migration
             $table->integer('from')->unsigned()->index();
             $table->string('type');
             $table->text('message')->nullable();
+            $table->text('replay')->nullable();
             $table->integer('ChatSetting_id')->unsigned()->index();
             $table->string('attachment')->nullable();
             $table->dateTime('read')->nullable();

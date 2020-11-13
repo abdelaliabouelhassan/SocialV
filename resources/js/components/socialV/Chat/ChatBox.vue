@@ -86,11 +86,11 @@
 
                     </span>
                   <span v-else>
-                        <a  class="avatar m-0" v-if="chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id ">
+                        <a  class="avatar m-0" v-if=" chat.type == 'replay' || chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id ">
                             <img :src="Friend.profile_photo_url" v-if="Friend.id == chat.from" alt="avatar" class="avatar-35 ">
                             <img :src="getUserInfo.profile_photo_url" v-if="Friend.id != chat.from" alt="avatar" class="avatar-35 ">
                         </a>
-                                  <span class="chat-time mt-1" v-if="chat.type == 'emoji' || chat.type == 'message'"><TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo>
+                                  <span class="chat-time mt-1" v-if="chat.type == 'emoji' || chat.type == 'message' || chat.type == 'replay' || chat.type == 'removed'"><TimeAgo :refresh="60" :datetime="chat.created_at" locale="en" tooltip></TimeAgo>
                                   <span v-if="index == ChatMessages.length -1" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
                                    <span v-if="index == ChatMessages.length - 2" v-show="chat.read != null && chat.from == getUserInfo.id" > (  <img src="images/icon/eye-125-141484.png"  alt="seen" style="width:25px;height:20px;"  >) </span>
                         </span>
@@ -108,6 +108,14 @@
                     <div class="chat-detail" v-if=" chat.type ==  'DeleteForEveryone' "  >
                         <div class="chat-message" style="background-color:#146c80">
                             <p style="font-size: 19px;"  v-text="'Message Deleted'"></p>
+                            <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
+                        </div>
+                    </div>
+                    <div class="chat-detail"  v-if="chat.type == 'replay'" >
+                        <div class="chat-message" >
+                            <p style="font-size: 19px;color:black"  ><b>replied to</b> {{chat.replay}}</p>
+                            <hr>
+                            <p style="font-size: 19px;"  v-text="chat.message"></p>
                             <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
                         </div>
                     </div>
@@ -161,6 +169,9 @@
                 <VEmojiPicker @select="selectEmoji" v-show="showEmoji"/>
             </div>
             <div class="chat-footer p-3 bg-white">
+                <div v-if="isReplay">
+                    <p ><i class="fa fa-times-circle" aria-hidden="true" style="cursor:pointer;" @click="isReplay = false"></i> <b style="color:gray;">Replaying To {{Friend.name}} </b> <span>{{replaymsg}}</span></p>
+                </div>
                 <div class="attachmnt">
                     <img  v-for="(img,index) in image" class="img-thumbnail item" :src="img" style="width: 50px;height: 50px ;cursor: pointer" @click="deleteImage(index)" alt="">
                     <video v-for="(vid,index) in video" :src="vid" class="embed-responsive-item item" style="width: 90px;height: 90px;cursor:pointer " @click="Deletevid(index)"></video>
@@ -193,6 +204,8 @@
         },
         data(){
             return{
+                replaymsg:'',
+                isReplay:false,
                 showMsgOptions:false,
                 hovermsg:null,
                 isHover:false,
@@ -255,7 +268,9 @@
                 })
             },
             ReplayMsg(msg){
-                    console.log(msg)
+                    this.isReplay = true;
+                    this.replaymsg = msg.message;
+
             },
             DeleteMsg(msg){
                 swalWithBootstrapButtons.fire({
@@ -417,21 +432,30 @@
                    return;
                 }else{
                     var type = ""
-                    if(this.isOnlyEmot){
-                        type = "emoji";
-                    }else {
-                        type = "message";
+                    var replayMsg = null
+                    if(this.isReplay){
+                        type = "replay";
+                        replayMsg = this.replaymsg
+                    }else{
+                        if(this.isOnlyEmot){
+                            type = "emoji";
+                        }else {
+                            type = "message";
+                        }
                     }
+
                     this.showEmoji = false
                     this.isSent = true
                     setTimeout(this.ScrollToEnd,100)
-                    this.axios.post('/api/SendMessage',{message:this.message,to:this.Friend.id,type:type,image:this.image,video:this.video}).then((response) => {
+                    this.axios.post('/api/SendMessage',{message:this.message,to:this.Friend.id,type:type,image:this.image,video:this.video,replayMsg:replayMsg}).then((response) => {
                         this.ChatMessages.unshift(response.data)
                         this.image = [];
                         this.video = []
                         this.isSent = false
                         this.message= ''
                         this.showEmoji = false
+                        this.isReplay = false
+                        this.replaymsg = ""
                         setTimeout(this.ScrollToEnd,100)
                     }).catch((error)=>{
                         this.isSent = false

@@ -58,10 +58,10 @@ import ChatBox from "../socialV/Chat/ChatBox";
                     if(freind.id == user.id){
                         freind.status = 'offline'
                         //this is not necessary to send request to server again cuz we are using webhook
-                        this.axios.post('/api/SetUserOffline',{id:user.id}).then((response) => {
-                        }).catch((error)=>{
-                            console.log(error)
-                        })
+                        // this.axios.post('/api/SetUserOffline',{id:user.id}).then((response) => {
+                        // }).catch((error)=>{
+                        //     console.log(error)
+                        // })
                     }
                 });
             },
@@ -70,10 +70,10 @@ import ChatBox from "../socialV/Chat/ChatBox";
                     if(freind.id == user.id){
                         freind.status = 'online'
                         //this is not necessary to send request to server again cuz we are using webhook
-                        this.axios.post('/api/SetUserOnline',{id:user.id}).then((response) => {
-                        }).catch((error)=>{
-                            console.log(error)
-                        })
+                        // this.axios.post('/api/SetUserOnline',{id:user.id}).then((response) => {
+                        // }).catch((error)=>{
+                        //     console.log(error)
+                        // })
                     }
                 });
             },
