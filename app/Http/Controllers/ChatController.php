@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageEvent;
 use App\Http\Resources\GetMessage;
+use App\Http\Resources\GetMessageNotification;
 use App\Models\Chat;
 use App\Models\ChatSettings;
 use App\Models\PostUpload;
@@ -27,7 +28,7 @@ class ChatController extends Controller
         if(!$CheckChat){
             $CheckChat =  ChatSettings::create([
                 'user_one'=>auth('sanctum')->id(),
-                'user_two'=>$request->to
+                'user_two'=>$request->to,
             ]);
         }
 
@@ -41,6 +42,14 @@ class ChatController extends Controller
             'ChatSetting_id'=>$CheckChat->id,
             'read'=>null
         ]);
+
+
+            if($CheckChat){
+                $CheckChat =   $CheckChat =  ChatSettings::whereIn('user_one', [auth('sanctum')->id(), $request->to])
+                    ->whereIn('user_two', [auth('sanctum')->id(), $request->to])->update(['last_msg_id'=>$chat->id]);
+            }
+
+
 
 
         //upload fils
@@ -182,5 +191,17 @@ class ChatController extends Controller
             $msg->save();
         return response()->json('msgRemoved',200);
     }
+
+
+
+    //notification msg
+
+    public function GetMessageNotification(){
+
+
+        return GetMessageNotification::collection(ChatSettings::where('user_one', auth('sanctum')->id())
+                                                ->orWhere('user_two', auth('sanctum')->id())->latest('updated_at')->paginate(7));
+    }
+
 
 }

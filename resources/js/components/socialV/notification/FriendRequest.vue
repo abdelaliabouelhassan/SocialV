@@ -1,6 +1,9 @@
 <template>
     <li class="nav-item">
-        <a class="search-toggle iq-waves-effect" href="javascript:void(0);"><i class="ri-group-line"></i></a>
+        <a class="search-toggle iq-waves-effect" href="javascript:void(0);"><i class="ri-group-line"></i>
+            <span class="bg-primary count-mail" v-show="FriendRequests.length != 0"></span>
+
+        </a>
         <div class="iq-sub-dropdown iq-sub-dropdown-large">
             <div class="iq-card shadow-none m-0">
                 <div class="iq-card-body p-0 ">

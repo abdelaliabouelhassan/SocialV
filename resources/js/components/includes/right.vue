@@ -5,7 +5,7 @@
             <div class="iq-card shadow-none">
                 <div class="iq-card-body p-0">
                     <div class="media-height p-3">
-                        <div class="media align-items-center mb-4" v-for="Friends in MyFriends">
+                        <div class="media align-items-center mb-4" v-for="Friends in resultQuery">
                             <div class="iq-profile-avatar status-online" v-if="Friends.status == 'online'">
                                 <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
                             </div>
@@ -14,17 +14,27 @@
                             </div>
                             <div class="media-body ml-3" @click="StartChat(Friends)">
                                 <h6 class="mb-0"><a href="javascript:void(0)" style="text-decoration: none;">{{Friends.name}}</a></h6>
-                                <p class="mb-0">Admin</p>
+                                <p class="mb-0"   v-if="Friends.last_online != null && Friends.status != 'online'"> <b><TimeAgo  :refresh="60" :datetime="Friends.last_online" locale="en" tooltip></TimeAgo></b></p>
                             </div>
                         </div>
+
                     </div>
                     <div class="right-sidebar-toggle bg-primary mt-3">
                         <i class="ri-arrow-left-line side-left-icon"></i>
                         <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Close Menu</span></i>
                     </div>
                 </div>
+
             </div>
+
         </div>
+          <div class="iq-search-bar" style="background-color:blue;">
+              <div class="searchbox">
+                  <input type="text" class="text search-input" v-model="searchQuery" placeholder="Type here to search..." >
+                  <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+
+              </div>
+          </div>
     </div>
 
         <!-- Chat Box     -->
@@ -36,15 +46,30 @@
 <script>
 
 import ChatBox from "../socialV/Chat/ChatBox";
+import TimeAgo from 'vue2-timeago'
+
     export default {
         components:{
             ChatBox,
+            TimeAgo
         },
         data(){
             return {
+                searchQuery:null,
                 MyFriends:[],
                 showChatBox:false,
                 Friend:[],
+            }
+        },
+        computed:{
+            resultQuery(){
+                if(this.searchQuery){
+                    return this.MyFriends.filter((item)=>{
+                        return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+                    })
+                }else{
+                    return this.MyFriends;
+                }
             }
         },
         methods:{
@@ -57,6 +82,7 @@ import ChatBox from "../socialV/Chat/ChatBox";
                 this.MyFriends.forEach(freind=>{
                     if(freind.id == user.id){
                         freind.status = 'offline'
+                        freind.last_online = Date.now()
                         //this is not necessary to send request to server again cuz we are using webhook
                         // this.axios.post('/api/SetUserOffline',{id:user.id}).then((response) => {
                         // }).catch((error)=>{

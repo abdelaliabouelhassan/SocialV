@@ -19,6 +19,7 @@ class CreateChatSettingsTable extends Migration
             $table->integer('user_two')->unsigned()->index();
             $table->integer('user_one_Delete_msg')->nullable();
             $table->integer('user_two_Delete_msg')->nullable();
+            $table->integer('last_msg_id')->nullable();
             $table->timestamps();
         });
     }

@@ -97,18 +97,18 @@
                   </span>
                         </span>
                     </div>
-                    <div class="chat-detail" v-if=" chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id " v-linkified  >
+                    <div class="chat-detail" v-if=" chat.type == 'emoji' || chat.type == 'message' || chat.type == 'removed' && chat.who != getUserInfo.id "  >
                         <div class="chat-message">
-                            <p v-if="chat.type == 'message'" style="font-size: 19px" v-text="chat.message"  ></p>
+                            <p v-if="chat.type == 'message'" style="font-size: 19px" v-text="chat.message"  v-linkified  ></p>
                             <p style="font-size: 70px" v-if="chat.type == 'emoji'" v-text="chat.message"   ></p>
-                            <p style="font-size: 19px" v-if="chat.type == 'removed' && chat.who != getUserInfo.id" v-text="chat.message"></p>
+                            <p style="font-size: 19px" v-if="chat.type == 'removed' && chat.who != getUserInfo.id" v-text="chat.message" ></p>
                             <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
                         </div>
                     </div>
                     <div class="chat-detail" v-if=" chat.type ==  'DeleteForEveryone' "  >
                         <div class="chat-message" style="background-color:#146c80">
                             <p style="font-size: 19px;"  v-text="'Message Deleted'"></p>
-                            <ChatAttachments  :files="chat.attachments" v-if="chat.attachment == 'yes'"></ChatAttachments>
+
                         </div>
                     </div>
                     <div class="chat-detail"  v-if="chat.type == 'replay'" >
@@ -251,6 +251,7 @@
                             )
                             msg.type = "bothremoved";
                             msg.who = 0;
+                            something.$emit('LoadNotficationMsg');
                         }).catch((error)=>{
                             console.log(error)
                         });
@@ -289,6 +290,7 @@
                                 'Your Message has been Removed.',
                                 'success'
                             )
+                            something.$emit('LoadNotficationMsg');
                             if(msg.who == null){
                                 msg.type = "removed";
                                 msg.who = this.getUserInfo.id;
@@ -367,6 +369,7 @@
                     this.axios.post('/api/MessageSeen',{message_id:this.ChatMessages[0].id}).then((response) => {
                         console.log(response)
                         this.ChatMessages[0].read = response.data.read
+                        something.$emit('LoadNotficationMsg');
                     }).catch((error)=>{
                         console.log(error)
                     });
@@ -456,6 +459,7 @@
                         this.showEmoji = false
                         this.isReplay = false
                         this.replaymsg = ""
+                        something.$emit('LoadNotficationMsg');
                         setTimeout(this.ScrollToEnd,100)
                     }).catch((error)=>{
                         this.isSent = false
@@ -478,8 +482,14 @@
                 let _this = this;
                 Echo.private('ChatMessages.' + this.getUserInfo.id)
                     .listen('MessageEvent', (e) => {
-                        this.ChatMessages.unshift(e.message)
+                        console.log(e)
+                        console.log(this.Friend)
+                        if(this.Friend.id == e.message.from){
+                            this.ChatMessages.unshift(e.message)
+                        }
+
                         this.typing = false;
+                        something.$emit('LoadNotficationMsg');
                         setTimeout(this.ScrollToEnd,100)
                     })
                 .listenForWhisper('typing', (e) => {
@@ -492,6 +502,7 @@
                     }, 10000);
                 }) .listenForWhisper('seen', (e) => {
                     this.ChatMessages[0].read = "yes";
+                    something.$emit('LoadNotficationMsg');
                     document.getElementById('scroller').scrollTo(0,999999);
                 });
             },
@@ -511,6 +522,7 @@
         created(){
             something.$on('getMessageEvent',(Friend)=>{
                 this.message= ''
+                this.ChatMessages = [];
                 this.showEmoji = false
                 this.to = Friend.id
                 this.GetMessage(Friend);

@@ -18,11 +18,13 @@ class WebHookController extends Controller
         if($type == 'member_removed'){
             $user = User::find($user_id);
             $user->status = 'offline';
+            $user->last_online = now();
             $user->save();
         }
         if($type == "member_added"){
             $user = User::find($user_id);
             $user->status = 'online';
+            $user->last_online = now();
             $user->save();
         }
         return response()->json('greate',200);

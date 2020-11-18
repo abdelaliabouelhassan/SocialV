@@ -4,12 +4,16 @@
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/GetMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_29_124100_create_chats_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_29_124100_create_chats_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebHookController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebHookController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ChatSettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ChatSettings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_095752_create_chat_settings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_07_095752_create_chat_settings_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/header.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/includes/right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/right.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/notification/FriendRequest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/notification/FriendRequest.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +54,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/resources/js/components/App.vue" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/bootstrap.js" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/ChatController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/ChatController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -216,12 +220,13 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\socialv\resources\js\components\socialV\NewsFeed" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\socialv\public\audio" />
       <recent name="C:\wamp64\www\socialv\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\socialv\resources\js\components\socialV\notification" />
+      <recent name="C:\wamp64\www\socialv\resources\js\components\socialV\NewsFeed" />
     </key>
   </component>
   <component name="RunManager">
@@ -302,7 +307,12 @@
       <workItem from="1605178940085" duration="1157000" />
       <workItem from="1605187054141" duration="207000" />
       <workItem from="1605192795073" duration="7717000" />
-      <workItem from="1605274500147" duration="1266000" />
+      <workItem from="1605274500147" duration="2482000" />
+      <workItem from="1605366276172" duration="5422000" />
+      <workItem from="1605443225235" duration="10978000" />
+      <workItem from="1605520535339" duration="577000" />
+      <workItem from="1605528312840" duration="71000" />
+      <workItem from="1605703090154" duration="8626000" />
     </task>
     <servers />
   </component>

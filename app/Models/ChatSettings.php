@@ -9,4 +9,9 @@ class ChatSettings extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+
+    public function  lastMsg(){
+        return $this->belongsTo('App\Models\Chat','last_msg_id');
+    }
 }
