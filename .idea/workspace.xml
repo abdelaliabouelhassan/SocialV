@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8b2b27ca-5808-45ea-8e69-0e9c848acfd3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChatController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/WebHookController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebHookController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ChatSettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ChatSettings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_07_095752_create_chat_settings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_07_095752_create_chat_settings_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/includes/right.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/includes/right.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/socialV/notification/FriendRequest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/socialV/notification/FriendRequest.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +43,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/resources/js/components/App.vue" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/bootstrap.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/resources/js/components/includes/right.vue" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/ChatController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/components/socialV/Chat/ChatBox.vue" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/js/components/socialV/NewsFeed/Posts.vue" root0="SKIP_HIGHLIGHTING" />
@@ -312,7 +302,8 @@
       <workItem from="1605443225235" duration="10978000" />
       <workItem from="1605520535339" duration="577000" />
       <workItem from="1605528312840" duration="71000" />
-      <workItem from="1605703090154" duration="8626000" />
+      <workItem from="1605703090154" duration="9428000" />
+      <workItem from="1606001685938" duration="109000" />
     </task>
     <servers />
   </component>

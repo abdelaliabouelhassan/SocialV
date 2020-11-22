@@ -17,6 +17,9 @@ class ChatController extends Controller
     //
     public function SendMessage(Request $request){
 
+       
+    
+
         $attachmet = null;
         if($request->image || $request->video){
             $attachmet = "yes";
