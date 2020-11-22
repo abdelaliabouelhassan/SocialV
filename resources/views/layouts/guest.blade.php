@@ -29,6 +29,7 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+        
 
        <script src="js/jquery.min.js"></script>
         <script src="js/popper.min.js"></script>
