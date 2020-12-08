@@ -4,7 +4,16 @@
         <div class="right-sidebar-panel p-0">
             <div class="iq-card shadow-none">
                 <div class="iq-card-body p-0">
+              <div class="iq-search-bar" >
+              <div class="searchbox" id="searchBar" >
+                  <input type="text"  class="text search-input" v-model="searchQuery" placeholder="Type here to search..." >
+                  <a class="search-link" href="#" id="icontSearchBar"><i class="ri-search-line" ></i></a>
+
+              </div>
+          </div>
+
                     <div class="media-height p-3">
+                        
                         <div class="media align-items-center mb-4" v-for="Friends in resultQuery">
                             <div class="iq-profile-avatar status-online" v-if="Friends.status == 'online'">
                                 <img class="rounded-circle avatar-50" :src="Friends.profile_photo_url" alt="">
@@ -18,6 +27,11 @@
                             </div>
                         </div>
 
+                        <dir style="color: gray; padding-left: 20px; font-size: 29px;" v-if="MyFriends.length == 0">
+                            <b>You Dont Have Any Friends ☹️</b>
+                        </dir>
+
+                      
                     </div>
                     <div class="right-sidebar-toggle bg-primary mt-3">
                         <i class="ri-arrow-left-line side-left-icon"></i>
@@ -28,13 +42,8 @@
             </div>
 
         </div>
-          <div class="iq-search-bar" style="background-color:blue;">
-              <div class="searchbox">
-                  <input type="text" class="text search-input" v-model="searchQuery" placeholder="Type here to search..." >
-                  <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-
-              </div>
-          </div>
+     
+         
     </div>
 
         <!-- Chat Box     -->
@@ -138,6 +147,10 @@ import TimeAgo from 'vue2-timeago'
 </script>
 
 <style scoped>
+
+#searchBar{
+width: 101%;
+}
 
 
 

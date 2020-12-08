@@ -20,6 +20,10 @@ use Illuminate\Http\Request;
 
 Route::middleware(['auth:sanctum'])->post('auth/video_chat','VideoChatController@auth');
 
+Route::get('shutdown', function(){
+    return Artisan::call('down');
+});
+
 
 Route::get('/test',function (){
 

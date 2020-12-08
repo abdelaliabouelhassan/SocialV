@@ -137,8 +137,8 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover">
-                                            <div class="media align-items-center">
+                                        <router-link to="/settings"    class="iq-sub-card iq-bg-info-hover">
+                                         <div class="media align-items-center">
                                                 <div class="rounded iq-card-icon iq-bg-info">
                                                     <i class="ri-account-box-line"></i>
                                                 </div>
@@ -147,7 +147,9 @@
                                                     <p class="mb-0 font-size-12">Manage your account parameters.</p>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </router-link>
+
+                                
                                         <a href="privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
                                             <div class="media align-items-center">
                                                 <div class="rounded iq-card-icon iq-bg-danger">
