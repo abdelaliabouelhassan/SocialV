@@ -6,7 +6,7 @@
                 <div class="user-post-data">
                     <div class="d-flex flex-wrap">
                         <div class="media-support-user-img mr-3">
-                            <img class="rounded-circle img-fluid" :src="post.user.profile_photo_url" alt="">
+                            <img class="rounded-circle img-fluid" :src="post.user.profile_photo_path == null ? post.user.profile_photo_url : post.user.profile_photo_path" alt="">
                         </div>
                         <div class="media-support-info mt-2">
                             <h5 class="mb-0 d-inline-block"><a href="#" class="">{{post.user.name}}</a></h5>
@@ -119,7 +119,7 @@
                         <li class="mb-2" v-for="(comment,index1) in post.comments">
                             <div class="d-flex flex-wrap">
                                 <div class="user-img">
-                                    <img :src="comment.user.profile_photo_url" :alt="comment.user.name" class="avatar-35 rounded-circle img-fluid">
+                                    <img :src="comment.user.profile_photo_path == null ? comment.user.profile_photo_url : comment.user.profile_photo_path" :alt="comment.user.name" class="avatar-35 rounded-circle img-fluid">
                                 </div>
                                 <div class="comment-data-block ml-3">
                                     <h6>{{comment.user.name}}</h6>
@@ -137,7 +137,7 @@
                                             <div class="d-flex flex-wrap">
                                                 <div class="d-flex flex-wrap">
                                                     <div class="user-img">
-                                                        <img :src="replay.user.profile_photo_url" :alt="replay.user.name" class="avatar-35 rounded-circle img-fluid">
+                                                        <img :src=" replay.user.profile_photo_path == null ?  replay.user.profile_photo_url :  replay.user.profile_photo_path" :alt="replay.user.name" class="avatar-35 rounded-circle img-fluid">
                                                     </div>
 
                                                     <div class="comment-data-block ml-3">
@@ -168,7 +168,7 @@
                         <div class="d-flex flex-wrap align-items-center comment-activity">
                             <a href="javascript:void(0)" v-if="post.comments.length < post.commentCount" @click="loadMoreComments(post)">LoadMore Comments</a>
                             <a href="javascript:void(0)" v-if="post.comments.length > 5" @click="loadLessComments(post)">LoadLess Comments</a>
-                            <img src="images/page-img/page-load-loader.gif"  alt="loader" style="height: 50px;" v-if="showLoadGif == post">
+                            <img src="images/page-img/page-load-loader.gif"  alt="loader" style="height: 50px;" v-show="showLoadGif == post">
                         </div>
                         <span v-if="showIsTypin == post.id" style="background-color:gray; border-radius: 5px;color: white;">Some One is Typing...</span>
 

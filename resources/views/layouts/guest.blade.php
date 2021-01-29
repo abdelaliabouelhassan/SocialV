@@ -11,15 +11,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="shortcut icon" href="images/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
         <!-- Typography CSS -->
-        <link rel="stylesheet" href="css/typography.css">
+        <link rel="stylesheet" href="/css/typography.css">
         <!-- Style CSS -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
         <!-- Responsive CSS -->
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="/css/responsive.css">
 {{--        <link rel="stylesheet" href="{{ asset('css/app.css') }}">--}}
 
         <!-- Scripts -->
@@ -31,36 +31,36 @@
         </div>
         
 
-       <script src="js/jquery.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+       <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         <!-- Appear JavaScript -->
-        <script src="js/jquery.appear.js"></script>
+        <script src="/js/jquery.appear.js"></script>
         <!-- Countdown JavaScript -->
-        <script src="js/countdown.min.js"></script>
+        <script src="/js/countdown.min.js"></script>
         <!-- Counterup JavaScript -->
-        <script src="js/waypoints.min.js")}}></script>
-        <script src="js/jquery.counterup.min.js"></script>
+        <script src="/js/waypoints.min.js")}}></script>
+        <script src="/js/jquery.counterup.min.js"></script>
         <!-- Wow JavaScript -->
-        <script src="js/wow.min.js"></script>
+        <script src="/js/wow.min.js"></script>
         <!-- Apexcharts JavaScript -->
-        <script src="js/apexcharts.js"></script>
+        <script src="/js/apexcharts.js"></script>
         <!-- lottie JavaScript -->
-        <script src="js/lottie.js"></script>
+        <script src="/js/lottie.js"></script>
         <!-- Slick JavaScript -->
-        <script src="js/slick.min.js"></script>
+        <script src="/js/slick.min.js"></script>
         <!-- Select2 JavaScript -->
-        <script src="js/select2.min.js"></script>
+        <script src="/js/select2.min.js"></script>
         <!-- Owl Carousel JavaScript -->
-        <script src="js/owl.carousel.min.js"></script>
+        <script src="/js/owl.carousel.min.js"></script>
         <!-- Magnific Popup JavaScript -->
-        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="/js/jquery.magnific-popup.min.js"></script>
         <!-- Smooth Scrollbar JavaScript -->
-        <script src="js/smooth-scrollbar.js"></script>
+        <script src="/js/smooth-scrollbar.js"></script>
         <!-- Chart Custom JavaScript -->
-        <script src="js/chart-custom.js"></script>
+        <script src="/js/chart-custom.js"></script>
         <!-- Custom JavaScript -->
-        <script src="js/custom.js"></script>
+        <script src="/js/custom.js"></script>
       
     </body>
 </html>

@@ -3,7 +3,7 @@
     <div class="iq-card-body" data-toggle="modal" data-target="#post-modal" @click="show = true">
         <div class="d-flex align-items-center">
             <div class="user-img">
-                <img :src="$store.getters.getUserInfo.profile_photo_url" alt="userimg" class="avatar-60 rounded-circle">
+                <img :src="$store.getters.getUserInfo.profile_photo_path == null ? $store.getters.getUserInfo.profile_photo_url : $store.getters.getUserInfo.profile_photo_path" alt="userimg" class="avatar-60 rounded-circle">
             </div>
             <form class="post-text ml-3 w-100">
                 <input type="text" class="form-control rounded" placeholder="Write something here..." style="border:none;">
@@ -42,7 +42,7 @@
                 <div class="modal-body">
                     <div class="d-flex align-items-center">
                         <div class="user-img">
-                            <img src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                            <img :src="$store.getters.getUserInfo.profile_photo_path == null ? $store.getters.getUserInfo.profile_photo_url : $store.getters.getUserInfo.profile_photo_path" alt="userimg" class="avatar-60 rounded-circle img-fluid">
                         </div>
                         <form class="post-text ml-3 w-100" action="#">
                             <textarea  id="" cols="30" rows="5" class="form-control rounded" placeholder="Write something here..." style="border:none;" v-model="post.body"></textarea>
@@ -87,7 +87,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
                                 <div class="user-img mr-3">
-                                    <img src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                    <img :src="$store.getters.getUserInfo.profile_photo_path == null ? $store.getters.getUserInfo.profile_photo_url : $store.getters.getUserInfo.profile_photo_path" alt="userimg" class="avatar-60 rounded-circle img-fluid">
                                 </div>
                                 <h6>Your Story</h6>
                             </div>
@@ -233,7 +233,7 @@
                                this.$Progress.fail()
                                Swal.fire({
                                    position: 'bottom-end',
-                                   icon: 'success',
+                                   icon: 'error',
                                    title: 'Please Try Again... X.X',
                                    showConfirmButton: false,
                                    timer: 1500

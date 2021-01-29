@@ -46,6 +46,9 @@
         },
         created() {
                 this.loadCurrentUser();
+                 something.$on('loadUser',()=>{
+                 this.loadCurrentUser();
+            }); 
         }
     }
 </script>

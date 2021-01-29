@@ -43,3 +43,8 @@ Route::middleware('auth:sanctum')->post('/DeleteChat','ChatController@DeleteChat
 Route::middleware('auth:sanctum')->post('/removeMsg','ChatController@removeMsg');
 Route::middleware('auth:sanctum')->post('/DeleteForEveryone','ChatController@DeleteForEveryone');
 Route::middleware('auth:sanctum')->get('/GetMessageNotification','ChatController@GetMessageNotification');
+Route::middleware('auth:sanctum')->get('/Getcountries', 'AppGeneralApiController@Getcountries');
+Route::middleware('auth:sanctum')->get('/Getcities/{name}', 'AppGeneralApiController@Getcities');
+Route::middleware('auth:sanctum')->post('/UpdateInfo', 'UserController@UpdateInfo');
+Route::middleware('auth:sanctum')->post('/UpdateProfileImage', 'UserController@UpdateProfileImage');
+Route::middleware('auth:sanctum')->post('/ChangePassword', 'UserController@ChangePassword');

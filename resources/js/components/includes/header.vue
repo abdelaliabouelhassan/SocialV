@@ -16,7 +16,7 @@
                 <div class="iq-search-bar">
                     <div class="searchbox">
                         <input type="text" class="text search-input" placeholder="Type here to search..." @keyup="search" v-model="data">
-                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                        <a class="search-link" href="javascript:void(0)"><i class="ri-search-line"></i></a>
 
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <ul class="navbar-nav ml-auto navbar-list">
                         <li>
                             <a href="" class="iq-waves-effect d-flex align-items-center">
-                                <img :src="getUserInfo.profile_photo_url" class="img-fluid rounded-circle mr-3" alt="user">
+                                <img :src="$store.state.user.profile_photo_path == null ? $store.state.user.profile_photo_url : $store.state.user.profile_photo_path " class="img-fluid rounded-circle mr-3" alt="user">
                                 <div class="caption">
                                     <h6 class="mb-0 line-height">{{getUserInfo.name}}</h6>
                                 </div>
@@ -40,7 +40,7 @@
                         </li>
                         <FriendRequest></FriendRequest>
                         <li class="nav-item">
-                            <a href="#" class="search-toggle las la-bell">
+                            <a href="javascript:void(0)" class="search-toggle las la-bell">
                                 <span class="bg-danger dots"></span>
                             </a>
                             <div class="iq-sub-dropdown">
@@ -49,7 +49,7 @@
                                         <div class="bg-primary p-3">
                                             <h5 class="mb-0 text-white">All Notifications<small class="badge  badge-light float-right pt-1">4</small></h5>
                                         </div>
-                                        <a href="#" class="iq-sub-card" >
+                                        <a href="javascript:void(0)" class="iq-sub-card" >
                                             <div class="media align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
@@ -61,7 +61,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="iq-sub-card" >
+                                        <a href="javascript:void(0)" class="iq-sub-card" >
                                             <div class="media align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
@@ -73,7 +73,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="iq-sub-card" >
+                                        <a href="javascript:void(0)" class="iq-sub-card" >
                                             <div class="media align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
@@ -85,7 +85,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#" class="iq-sub-card" >
+                                        <a href="javascript:void(0)" class="iq-sub-card" >
                                             <div class="media align-items-center">
                                                 <div class="">
                                                     <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
@@ -105,14 +105,14 @@
                     </ul>
                     <ul class="navbar-list">
                         <li>
-                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                            <a href="javascript:void(0)" class="search-toggle iq-waves-effect d-flex align-items-center">
                                 <i class="ri-arrow-down-s-fill"></i>
                             </a>
                             <div class="iq-sub-dropdown iq-user-dropdown">
                                 <div class="iq-card shadow-none m-0">
                                     <div class="iq-card-body p-0 ">
                                         <div class="bg-primary p-3 line-height">
-                                            <h5 class="mb-0 text-white line-height">Hello Bni Cyst</h5>
+                                            <h5 class="mb-0 text-white line-height">Hello {{$store.state.user.name}}</h5>
                                             <span class="text-white font-size-12">Available</span>
                                         </div>
                                         <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
@@ -126,7 +126,8 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+
+                                        <router-link to="/editprofile" class="iq-sub-card iq-bg-warning-hover">
                                             <div class="media align-items-center">
                                                 <div class="rounded iq-card-icon iq-bg-warning">
                                                     <i class="ri-profile-line"></i>
@@ -136,7 +137,8 @@
                                                     <p class="mb-0 font-size-12">Modify your personal details.</p>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </router-link>
+                                        
                                         <router-link to="/settings"    class="iq-sub-card iq-bg-info-hover">
                                          <div class="media align-items-center">
                                                 <div class="rounded iq-card-icon iq-bg-info">

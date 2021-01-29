@@ -16,13 +16,20 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/test/{name}', function ($name) {
+    $url = public_path('data/geo.json');
+    $datos = file_get_contents($url);
+    $data = json_decode($datos, true);
+    $contryies =   array_keys($data);
+    $data = array_filter($data);
+    return  collect($data)->get("Morocco");
+   return $data = collect($data)->get("Morocco");
+    
+});
 
 
 Route::middleware(['auth:sanctum'])->post('auth/video_chat','VideoChatController@auth');
 
-Route::get('shutdown', function(){
-    return Artisan::call('down');
-});
 
 
 Route::get('/test',function (){

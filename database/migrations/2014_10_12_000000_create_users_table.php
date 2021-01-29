@@ -21,6 +21,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('status')->default('online');
             $table->dateTime('last_online')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('maritalstatus')->nullable();
+            $table->date('dateofbirth')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->text('address')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
